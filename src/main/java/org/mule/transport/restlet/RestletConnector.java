@@ -82,7 +82,7 @@ public class RestletConnector extends AbstractConnector
 
     public String getProtocol()
     {
-        return "restlet";
+        return "http";
     }
 
 }

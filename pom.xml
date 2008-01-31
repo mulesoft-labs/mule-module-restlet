@@ -14,6 +14,7 @@
 
   <properties>
     <mule.version>2.0.0-RC2-SNAPSHOT</mule.version>
+    <restlet.version>1.0.7</restlet.version>
   </properties>
 
   <!-- Mule Forge Configuration -->
@@ -183,6 +184,11 @@
       <version>${mule.version}</version>
     </dependency>
     <dependency>
+      <groupId>org.mule.modules</groupId>
+      <artifactId>mule-module-client</artifactId>
+      <version>${mule.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.mule.tests</groupId>
       <artifactId>mule-tests-functional</artifactId>
       <version>${mule.version}</version>
@@ -192,17 +198,22 @@
     <dependency>
       <groupId>org.restlet</groupId>
       <artifactId>org.restlet</artifactId>
-      <version>1.0.1</version>
+      <version>${restlet.version}</version>
     </dependency>
     <dependency>
       <groupId>com.noelios.restlet</groupId>
       <artifactId>com.noelios.restlet</artifactId>
-      <version>1.0.1</version>
+      <version>${restlet.version}</version>
     </dependency>
     <dependency>
       <groupId>com.noelios.restlet</groupId>
       <artifactId>com.noelios.restlet.ext.simple</artifactId>
-      <version>1.0.1</version>
+      <version>${restlet.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.noelios.restlet</groupId>
+      <artifactId>com.noelios.restlet.ext.httpclient</artifactId>
+      <version>${restlet.version}</version>
     </dependency>
 
 

@@ -29,9 +29,6 @@ public class RestletMessageDispatcher extends AbstractMessageDispatcher
 {
     private Client client;
 
-    /* For general guidelines on writing transports see
-       http://mule.mulesource.org/display/MULE/Writing+Transports */
-
     public RestletMessageDispatcher(ImmutableEndpoint endpoint)
     {
         super(endpoint);
@@ -83,13 +80,8 @@ public class RestletMessageDispatcher extends AbstractMessageDispatcher
         return (Request)event.transformMessage(Request.class);
     }
 
-
     public void doDispose()
     {
-        // Optional; does not need to be implemented. Delete if not required
-        
-        /* IMPLEMENTATION NOTE: Is called when the Dispatcher is being
-           disposed and should clean up any open resources. */
     }
 
 }
