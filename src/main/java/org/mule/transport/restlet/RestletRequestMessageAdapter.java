@@ -17,7 +17,7 @@ import org.restlet.util.Series;
 /**
  * <code>RestletRequestMessageAdapter</code> is a Mule message adapter for {@link Request} objects.
  * 
- * @author knaas
+ * @author <a href="mailto:keithnaas@biglots.com">keithnaas@biglots.com</a>
  */
 public class RestletRequestMessageAdapter extends AbstractMessageAdapter
 {

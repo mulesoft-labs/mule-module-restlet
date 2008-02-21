@@ -6,6 +6,9 @@ import org.restlet.Context;
 import org.restlet.Restlet;
 import org.restlet.Router;
 
+/**
+ * @author <a href="mailto:keithnaas@biglots.com">keithnaas@biglots.com</a>
+ */
 public class ReceiverRestletApplication extends RestletApplication
 {
     private final MessageReceiver receiver;

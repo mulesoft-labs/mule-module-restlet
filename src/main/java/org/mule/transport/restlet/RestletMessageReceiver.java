@@ -26,6 +26,8 @@ import org.restlet.data.Protocol;
 
 /**
  * <code>RestletMessageReceiver</code> TODO document
+ * 
+ * @author <a href="mailto:keithnaas@biglots.com">keithnaas@biglots.com</a>
  */
 public class RestletMessageReceiver extends AbstractRestletMessageReceiver
 {

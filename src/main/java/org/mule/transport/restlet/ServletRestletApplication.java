@@ -16,7 +16,7 @@ import org.restlet.data.Parameter;
  * The RestletApplication behaves very similarly to how a Servlet would. It registers all necessary Mule endpoints with
  * the Restlet container.
  * 
- * @author knaas
+ * @author <a href="mailto:keithnaas@biglots.com">keithnaas@biglots.com</a>
  */
 public class ServletRestletApplication extends RestletApplication
 {

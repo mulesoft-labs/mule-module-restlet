@@ -17,15 +17,19 @@ import org.mule.transport.AbstractMessageDispatcherFactory;
 
 /**
  * <code>RestletMessageDispatcherFactory</code> Todo document
+ * 
+ * @author <a href="mailto:keithnaas@biglots.com">keithnaas@biglots.com</a>
  */
 
 public class RestletMessageDispatcherFactory extends AbstractMessageDispatcherFactory
 {
 
-    /* For general guidelines on writing transports see
-       http://mule.mulesource.org/display/MULE/Writing+Transports */
+    /*
+     * For general guidelines on writing transports see http://mule.mulesource.org/display/MULE/Writing+Transports
+     */
 
-    public MessageDispatcher create(ImmutableEndpoint endpoint) throws MuleException
+    @Override
+    public MessageDispatcher create(final ImmutableEndpoint endpoint) throws MuleException
     {
         return new RestletMessageDispatcher(endpoint);
     }

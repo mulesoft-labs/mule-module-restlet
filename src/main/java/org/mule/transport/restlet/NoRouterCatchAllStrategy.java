@@ -1,3 +1,4 @@
+
 package org.mule.transport.restlet;
 
 import org.mule.api.MuleMessage;
@@ -11,7 +12,7 @@ import org.restlet.data.Status;
 /**
  * If a request doesn't have an outbound router associated with it, send back a 404.
  * 
- * @author knaas
+ * @author <a href="mailto:keithnaas@biglots.com">keithnaas@biglots.com</a>
  */
 final class NoRouterCatchAllStrategy implements RouterCatchAllStrategy
 {

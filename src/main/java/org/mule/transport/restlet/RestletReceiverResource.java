@@ -38,7 +38,7 @@ import org.restlet.resource.Variant;
  * The MuleResource is where the work occurs. It behaves very similarly to the MuleReceiverServlet. Since it is
  * instantiated at the time of the Request, we can do safely do all of the processing.
  * 
- * @author knaas
+ * @author <a href="mailto:keithnaas@biglots.com">keithnaas@biglots.com</a>
  */
 public class RestletReceiverResource extends Resource
 {

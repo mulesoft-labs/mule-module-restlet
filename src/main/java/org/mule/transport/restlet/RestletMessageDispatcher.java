@@ -10,7 +10,6 @@
 
 package org.mule.transport.restlet;
 
-
 import org.mule.DefaultMuleMessage;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
@@ -24,65 +23,72 @@ import org.restlet.data.Response;
 
 /**
  * <code>RestletMessageDispatcher</code> TODO document
+ * 
+ * @author <a href="mailto:keithnaas@biglots.com">keithnaas@biglots.com</a>
  */
 public class RestletMessageDispatcher extends AbstractMessageDispatcher
 {
-    private Client client;
+    private final Client client;
 
-    public RestletMessageDispatcher(ImmutableEndpoint endpoint)
+    public RestletMessageDispatcher(final ImmutableEndpoint endpoint)
     {
         super(endpoint);
-        
-        RestletConnector cnn = (RestletConnector)endpoint.getConnector();
-        Protocol protocol = Protocol.HTTP;
-       
+
+        final RestletConnector cnn = (RestletConnector) endpoint.getConnector();
+        final Protocol protocol = Protocol.HTTP;
+
         client = new Client(protocol);
     }
 
+    @Override
     public void doConnect() throws Exception
     {
         client.start();
     }
 
+    @Override
     public void doDisconnect() throws Exception
     {
         client.stop();
     }
 
-    public void doDispatch(MuleEvent event) throws Exception
+    @Override
+    public void doDispatch(final MuleEvent event) throws Exception
     {
         client.handle(getRequest(event));
     }
-    
-    public MuleMessage doSend(MuleEvent event) throws Exception
+
+    @Override
+    public MuleMessage doSend(final MuleEvent event) throws Exception
     {
-        Response response = client.handle(getRequest(event));
-        
+        final Response response = client.handle(getRequest(event));
+
         // TODO: redirects?
-        
-        return createResponseMessage(response); 
+
+        return createResponseMessage(response);
     }
 
-    public MuleMessage doReceive(long timeout) throws Exception
+    public MuleMessage doReceive(final long timeout) throws Exception
     {
-        Response response = client.get(endpoint.getEndpointURI().getAddress());
-        
+        final Response response = client.get(endpoint.getEndpointURI().getAddress());
+
         // TODO: redirects?
-        
-        return createResponseMessage(response); 
+
+        return createResponseMessage(response);
     }
 
-    protected MuleMessage createResponseMessage(Response response) {
+    protected MuleMessage createResponseMessage(final Response response)
+    {
         return new DefaultMuleMessage(response);
     }
 
-    protected Request getRequest(MuleEvent event) throws TransformerException {
-        return (Request)event.transformMessage(Request.class);
+    protected Request getRequest(final MuleEvent event) throws TransformerException
+    {
+        return (Request) event.transformMessage(Request.class);
     }
 
+    @Override
     public void doDispose()
-    {
-    }
+    {}
 
 }
-

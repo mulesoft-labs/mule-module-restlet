@@ -23,6 +23,9 @@ import org.restlet.resource.InputRepresentation;
 import org.restlet.resource.Representation;
 import org.restlet.resource.StringRepresentation;
 
+/**
+ * @author keithnaas@biglots.com
+ */
 public class ObjectToRequestTransformer extends AbstractMessageAwareTransformer implements DiscoverableTransformer
 {
 

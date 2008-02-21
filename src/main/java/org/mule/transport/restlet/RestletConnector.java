@@ -22,6 +22,8 @@ import com.noelios.restlet.http.HttpConstants;
 
 /**
  * <code>RestletConnector</code> TODO document
+ * 
+ * @author <a href="mailto:keithnaas@biglots.com">keithnaas@biglots.com</a>
  */
 public class RestletConnector extends AbstractConnector
 {

@@ -10,6 +10,9 @@ import org.mule.api.transport.Connector;
 import org.mule.transport.AbstractMessageReceiver;
 import org.restlet.data.Status;
 
+/**
+ * @author <a href="mailto:keithnaas@biglots.com">keithnaas@biglots.com</a>
+ */
 public abstract class AbstractRestletMessageReceiver extends AbstractMessageReceiver
 {
 

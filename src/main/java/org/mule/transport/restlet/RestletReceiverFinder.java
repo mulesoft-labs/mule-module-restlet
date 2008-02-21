@@ -15,7 +15,7 @@ import org.restlet.resource.Resource;
  * UMOMessageReceiver to the restlet request. The MuleFinder does this since it does the actual instantation of the
  * MuleResource.
  * 
- * @author knaas
+ * @author <a href="mailto:keithnaas@biglots.com">keithnaas@biglots.com</a>
  */
 public class RestletReceiverFinder extends Finder
 {

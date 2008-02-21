@@ -10,7 +10,7 @@ import com.noelios.restlet.ext.servlet.ServerServlet;
 /**
  * This is necessary in order to control behavior of the Restlet Component.
  * 
- * @author knaas
+ * @author <a href="mailto:keithnaas@biglots.com">keithnaas@biglots.com</a>
  */
 public class RestletServlet extends ServerServlet
 {

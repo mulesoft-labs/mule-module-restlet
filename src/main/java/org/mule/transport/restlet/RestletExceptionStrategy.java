@@ -18,6 +18,8 @@ import org.mule.api.endpoint.ImmutableEndpoint;
 
 /**
  * Restrict exceptions to debug log messages
+ * 
+ * @author <a href="mailto:keithnaas@biglots.com">keithnaas@biglots.com</a>
  */
 public class RestletExceptionStrategy extends DefaultExceptionStrategy
 {
