@@ -10,33 +10,36 @@
 
 package org.mule.transport.restlet;
 
-import com.mockobjects.dynamic.Mock;
-import org.mule.api.component.Component;
 import org.mule.api.endpoint.ImmutableEndpoint;
+import org.mule.api.service.Service;
 import org.mule.api.transport.MessageReceiver;
 import org.mule.tck.providers.AbstractMessageReceiverTestCase;
 
+import com.mockobjects.dynamic.Mock;
 
 public class RestletMessageReceiverTestCase extends AbstractMessageReceiverTestCase
 {
 
-    /* For general guidelines on writing transports see
-       http://mule.mulesource.org/display/MULE/Writing+Transports */
+    /*
+     * For general guidelines on writing transports see http://mule.mulesource.org/display/MULE/Writing+Transports
+     */
 
+    @Override
     public MessageReceiver getMessageReceiver() throws Exception
     {
-        Mock mockComponent = new Mock(Component.class);
-        mockComponent.expectAndReturn("getResponseTransformer", null);
-        return new RestletMessageReceiver(endpoint.getConnector(), 
-                                          (Component) mockComponent.proxy(), 
-                                          endpoint);
+        final Mock mockComponent = new Mock(Service.class);
+        mockComponent.expectAndReturn("getResponseRouter", null);
+        return new RestletMessageReceiver(endpoint.getConnector(), (Service) mockComponent.proxy(), endpoint);
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
     public ImmutableEndpoint getEndpoint() throws Exception
     {
-        // TODO return a valid UMOendpoint i.e.
-        // return new MuleEndpoint("tcp://localhost:1234", true)
-        throw new UnsupportedOperationException("getEndpoint");
+        endpoint = muleContext.getRegistry().lookupEndpointFactory()
+            .getInboundEndpoint("restlet:http://localhost:6789");
+        endpoint.getProperties().put("uriPattern", "/endpoint/{endpointId}");
+        return endpoint;
     }
 
 }

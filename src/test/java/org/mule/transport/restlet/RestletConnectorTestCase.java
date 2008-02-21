@@ -11,42 +11,51 @@
 package org.mule.transport.restlet;
 
 import org.mule.api.transport.Connector;
+import org.mule.api.transport.MessageRequesterFactory;
 import org.mule.tck.providers.AbstractConnectorTestCase;
+import org.restlet.data.Method;
+import org.restlet.data.Request;
 
 public class RestletConnectorTestCase extends AbstractConnectorTestCase
 {
 
-    /* For general guidelines on writing transports see
-       http://mule.mulesource.org/display/MULE/Writing+Transports */
+    /*
+     * For general guidelines on writing transports see http://mule.mulesource.org/display/MULE/Writing+Transports
+     */
 
+    @Override
     public Connector createConnector() throws Exception
     {
-        /* IMPLEMENTATION NOTE: Create and initialise an instance of your
-           connector here. Do not actually call the connect method. */
-
-        RestletConnector c = new RestletConnector();
-        
-        // TODO Set any additional properties on the connector here
+        final RestletConnector c = new RestletConnector();
+        c.setName("RestletConnector");
         return c;
     }
 
+    @Override
     public String getTestEndpointURI()
     {
-        // TODO Return a valid endpoint for you transport here
-        throw new UnsupportedOperationException("getTestEndpointURI");
+        return "restlet:http://localhost:60127";
     }
 
+    @Override
     public Object getValidMessage() throws Exception
     {
-        // TODO Return an valid message for your transport
-        throw new UnsupportedOperationException("getValidMessage");
+        return new Request(Method.GET, "/endpoint");
     }
-
 
     public void testProperties() throws Exception
     {
-        // TODO test setting and retrieving any custom properties on the
-        // Connector as necessary
+    // TODO test setting and retrieving any custom properties on the
+    // Connector as necessary
     }
 
+    @Override
+    public void testConnectorMessageRequesterFactory() throws Exception
+    {
+        final Connector connector = getConnector();
+        assertNotNull(connector);
+
+        final MessageRequesterFactory factory = connector.getRequesterFactory();
+        assertNull(factory);
+    }
 }

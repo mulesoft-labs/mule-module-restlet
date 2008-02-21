@@ -10,86 +10,128 @@
 
 package org.mule.transport.restlet;
 
-import org.mule.api.component.Component;
+import java.net.URI;
+
 import org.mule.api.endpoint.ImmutableEndpoint;
 import org.mule.api.lifecycle.CreateException;
+import org.mule.api.lifecycle.StartException;
+import org.mule.api.lifecycle.StopException;
+import org.mule.api.service.Service;
 import org.mule.api.transport.Connector;
-import org.mule.transport.AbstractPollingMessageReceiver;
+import org.mule.api.transport.MessageReceiver;
+import org.mule.config.i18n.CoreMessages;
 import org.mule.transport.ConnectException;
+import org.restlet.Component;
+import org.restlet.data.Protocol;
 
 /**
  * <code>RestletMessageReceiver</code> TODO document
  */
-public class RestletMessageReceiver extends  AbstractPollingMessageReceiver {
+public class RestletMessageReceiver extends AbstractRestletMessageReceiver
+{
 
-    /* For general guidelines on writing transports see
-       http://mule.mulesource.org/display/MULE/Writing+Transports */
+    protected Component component;
 
-    public RestletMessageReceiver(Connector connector, Component component,
-                              ImmutableEndpoint endpoint)
-            throws CreateException
+    /*
+     * For general guidelines on writing transports see http://mule.mulesource.org/display/MULE/Writing+Transports
+     */
+
+    public RestletMessageReceiver(final Connector connector, final Service service, final ImmutableEndpoint endpoint)
+    throws CreateException
     {
-        super(connector, component, endpoint);
+        super(connector, service, endpoint);
     }
 
+    @Override
     public void doConnect() throws ConnectException
     {
+        disposing.set(false);
+
+        if (shouldConnect())
+        {
+            final URI uri = endpoint.getEndpointURI().getUri();
+            int port = uri.getPort();
+            if (port == -1)
+            {
+                port = Protocol.HTTP.getDefaultPort();
+            }
+            component = new org.restlet.Component();
+            component.getServers().add(Protocol.HTTP, port);
+            component.getDefaultHost().attach("", new ReceiverRestletApplication(component.getContext(), this));
+        }
     }
 
+    protected boolean shouldConnect()
+    {
+        final StringBuilder requestUri = new StringBuilder(80);
+        requestUri.append(endpoint.getProtocol()).append("://");
+        requestUri.append(endpoint.getEndpointURI().getHost());
+        requestUri.append(':').append(endpoint.getEndpointURI().getPort());
+        requestUri.append('*');
+
+        final MessageReceiver[] receivers = connector.getReceivers(requestUri.toString());
+        for (final MessageReceiver element : receivers)
+        {
+            if (element.isConnected())
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    @Override
     public void doDisconnect() throws ConnectException
     {
-        /* IMPLEMENTATION NOTE: Disconnects and tidies up any rources allocted
-           using the doConnect() method. This method should return the
-           MessageReceiver into a disconnected state so that it can be
-           connected again using the doConnect() method. */
+        // this will cause the server thread to quit
+        disposing.set(true);
+
+        /*
+         * IMPLEMENTATION NOTE: Disconnects and tidies up any rources allocted using the doConnect() method. This method
+         * should return the MessageReceiver into a disconnected state so that it can be connected again using the
+         * doConnect() method.
+         */
 
         // TODO release any resources here
     }
 
-    public void doStart()
+    @Override
+    public void doStart() throws StartException
     {
-        // Optional; does not need to be implemented. Delete if not required
-
-        /* IMPLEMENTATION NOTE: Should perform any actions necessary to enable
-           the reciever to start reciving events. This is different to the
-           doConnect() method which actually makes a connection to the
-           transport, but leaves the MessageReceiver in a stopped state. For
-           polling-based MessageReceivers the start() method simply starts the
-           polling thread, for the Axis Message receiver the start method on
-           the SOAPService is called. What action is performed here depends on
-           the transport being used. Most of the time a custom provider
-           doesn't need to override this method. */
+        if (component != null && !component.isStarted())
+        {
+            try
+            {
+                component.start();
+            }
+            catch (final Exception e)
+            {
+                throw new StartException(CoreMessages.failedToStart(this.getReceiverKey()), e, this);
+            }
+        }
     }
 
-    public void doStop()
+    @Override
+    public void doStop() throws StopException
     {
-        // Optional; does not need to be implemented. Delete if not required
-
-        /* IMPLEMENTATION NOTE: Should perform any actions necessary to stop
-           the reciever from receiving events. */
+        if (component != null && !component.isStopped())
+        {
+            try
+            {
+                component.stop();
+            }
+            catch (final Exception e)
+            {
+                throw new StopException(CoreMessages.failedToStop(this.getReceiverKey()), e, this);
+            }
+        }
     }
 
+    @Override
     public void doDispose()
     {
-        // Optional; does not need to be implemented. Delete if not required
-
-        /* IMPLEMENTATION NOTE: Is called when the Conector is being dispoed
-           and should clean up any resources. The doStop() and doDisconnect()
-           methods will be called implicitly when this method is called. */
-    }
-
-    public void poll() throws Exception
-    {
-        /* IMPLEMENTATION NOTE: Once you have read the object it can be passed
-           into Mule by first wrapping the object with the Message adapter for
-           this transport and calling routeMessage i.e.
-
-            MessageAdapter adapter = connector.getMessageAdapter(object);
-            routeMessage(new MuleMessage(adapter), endpoint.isSynchronous());
-        */
-
-        // TODO request a message from the underlying technology e.g. Read a file
+        component = null;
     }
 
 }
-
