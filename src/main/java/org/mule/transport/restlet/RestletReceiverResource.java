@@ -216,6 +216,7 @@ public class RestletReceiverResource extends Resource
         getVariants().add(new Variant(MediaType.TEXT_PLAIN));
         getVariants().add(new Variant(MediaType.TEXT_XML));
         getVariants().add(new Variant(MediaType.TEXT_HTML));
+        getVariants().add(new Variant(MediaType.APPLICATION_XHTML_XML));
         // getVariants().add(new Variant(MediaType.APPLICATION_JSON));
     }
 
@@ -301,6 +302,7 @@ public class RestletReceiverResource extends Resource
         {
             retVal = super.getRepresentation(variant);
         }
+
         return retVal;
     }
 
