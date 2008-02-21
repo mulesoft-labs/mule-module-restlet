@@ -11,6 +11,7 @@ import org.apache.commons.lang.ObjectUtils;
 import org.mule.DefaultMuleMessage;
 import org.mule.RequestContext;
 import org.mule.api.MessagingException;
+import org.mule.api.MuleEvent;
 import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
 import org.mule.api.endpoint.EndpointException;
@@ -284,12 +285,14 @@ public class RestletReceiverResource extends Resource
             }
             else if (payload instanceof OutputHandler)
             {
+                // TODO: is this thing correct?
+                final MuleEvent event = RequestContext.getEvent();
                 retVal = new OutputRepresentation(mediaType)
                 {
                     @Override
                     public void write(final OutputStream outputStream) throws IOException
                     {
-                        ((OutputHandler) payload).write(RequestContext.getEvent(), outputStream);
+                        ((OutputHandler) payload).write(event, outputStream);
                     }
                 };
             }

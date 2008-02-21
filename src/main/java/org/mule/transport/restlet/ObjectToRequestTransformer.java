@@ -2,9 +2,13 @@
 package org.mule.transport.restlet;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Iterator;
 
+import org.mule.RequestContext;
+import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
 import org.mule.api.config.MuleProperties;
 import org.mule.api.transformer.DiscoverableTransformer;
@@ -20,11 +24,12 @@ import org.restlet.data.MediaType;
 import org.restlet.data.Method;
 import org.restlet.data.Request;
 import org.restlet.resource.InputRepresentation;
+import org.restlet.resource.OutputRepresentation;
 import org.restlet.resource.Representation;
 import org.restlet.resource.StringRepresentation;
 
 /**
- * @author keithnaas@biglots.com
+ * @author <a href="mailto:keithnaas@biglots.com">keithnaas@biglots.com</a>
  */
 public class ObjectToRequestTransformer extends AbstractMessageAwareTransformer implements DiscoverableTransformer
 {
@@ -94,7 +99,16 @@ public class ObjectToRequestTransformer extends AbstractMessageAwareTransformer 
         }
         else if (payload instanceof OutputHandler)
         {
-
+            // TODO: is this thing correct?
+            final MuleEvent event = RequestContext.getEvent();
+            rep = new OutputRepresentation(mediaType)
+            {
+                @Override
+                public void write(final OutputStream outputStream) throws IOException
+                {
+                    ((OutputHandler) payload).write(event, outputStream);
+                }
+            };
         }
         else
         {
