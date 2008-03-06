@@ -1,5 +1,5 @@
 
-package org.mule.transport.restlet;
+package org.mule.transport.restlet.servlet;
 
 import javax.servlet.ServletException;
 
@@ -10,7 +10,7 @@ import com.noelios.restlet.ext.servlet.ServerServlet;
 /**
  * This is necessary in order to control behavior of the Restlet Component.
  * 
- * @author <a href="mailto:keithnaas@biglots.com">keithnaas@biglots.com</a>
+ * @author knaas
  */
 public class RestletServlet extends ServerServlet
 {

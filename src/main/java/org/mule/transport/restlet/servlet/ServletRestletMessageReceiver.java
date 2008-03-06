@@ -8,19 +8,18 @@
  * LICENSE.txt file.
  */
 
-package org.mule.transport.restlet;
+package org.mule.transport.restlet.servlet;
 
 import org.mule.api.endpoint.ImmutableEndpoint;
 import org.mule.api.lifecycle.CreateException;
 import org.mule.api.service.Service;
 import org.mule.api.transport.Connector;
+import org.mule.transport.restlet.AbstractRestletMessageReceiver;
 
 /**
  * <code>ServletRestletMessageReceiver</code> is a receiver that is invoked from a Restlet Servlet when an event is
  * received. There is a one-to-one mapping between a ServletRestletMessageReceiver and a Restlet servlet in the serving
  * webapp.
- * 
- * @author <a href="mailto:keithnaas@biglots.com">keithnaas@biglots.com</a>
  */
 public class ServletRestletMessageReceiver extends AbstractRestletMessageReceiver
 {

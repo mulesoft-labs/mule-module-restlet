@@ -16,6 +16,7 @@ import org.mule.api.lifecycle.InitialisationException;
 import org.mule.api.service.Service;
 import org.mule.api.transport.MessageReceiver;
 import org.mule.transport.AbstractConnector;
+import org.mule.transport.restlet.servlet.ServletRestletMessageReceiver;
 import org.restlet.Application;
 
 import com.noelios.restlet.http.HttpConstants;

@@ -1,10 +1,12 @@
 
-package org.mule.transport.restlet;
+package org.mule.transport.restlet.servlet;
 
 import java.util.Map;
 
 import org.mule.RegistryContext;
 import org.mule.api.transport.MessageReceiver;
+import org.mule.transport.restlet.RestletApplication;
+import org.mule.transport.restlet.RestletConnector;
 import org.mule.transport.restlet.i18n.RestletMessages;
 import org.mule.transport.service.TransportFactory;
 import org.restlet.Context;
@@ -16,7 +18,7 @@ import org.restlet.data.Parameter;
  * The RestletApplication behaves very similarly to how a Servlet would. It registers all necessary Mule endpoints with
  * the Restlet container.
  * 
- * @author <a href="mailto:keithnaas@biglots.com">keithnaas@biglots.com</a>
+ * @author knaas
  */
 public class ServletRestletApplication extends RestletApplication
 {
