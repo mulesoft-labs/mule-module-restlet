@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:spring="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+  xmlns:a="http://abdera.apache.org"
+  xmlns:restlet="http://www.mulesource.org/schema/mule/restlet/2.0"
+  xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.0"
+  xsi:schemaLocation="
+               http://restlet.apache.org http://restlet.apache.org/schemas/restlet-spring.xsd
+               http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+               http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
+               http://www.mulesource.org/schema/mule/restlet/2.0 http://www.mulesource.org/schema/mule/restlet/2.0/mule-restlet.xsd
+               http://www.mulesource.org/schema/mule/vm/2.0 http://www.mulesource.org/schema/mule/vm/2.0/mule-vm.xsd">
+
+  <model name="testModel">
+
+    <service name="customerService">
+      <inbound>
+        <inbound-endpoint address="http://localhost:63080" remoteSync="true" />
+      </inbound>
+      <outbound>
+        <filtering-router>
+          <outbound-endpoint address="vm://queue1"/>
+          <restlet:uri-template-filter pattern="/bar/{foo}"/>
+        </filtering-router>
+        <filtering-router>
+          <outbound-endpoint address="vm://queue1"/>
+          <restlet:uri-template-filter pattern="/baz" />
+        </filtering-router>
+      </outbound>
+    </service>
+    
+    <service name="queue">
+      <inbound>
+        <inbound-endpoint address="vm://queue1" remoteSync="true"/>
+      </inbound>
+      <component>
+        <spring-object bean="component1"/>
+      </component>
+    </service>
+    
+  </model>
+
+  <spring:bean name="component1" class="org.mule.transport.restlet.TestComponent"/>
+  
+</mule>
