@@ -13,8 +13,8 @@
     <description>Restlet Transport</description>
 
     <properties>
-        <mule.version>2.0.0-RC2</mule.version>
-        <restlet.version>1.0.7</restlet.version>
+        <mule.version>2.0.0-RC3</mule.version>
+        <restlet.version>1.0.8</restlet.version>
     </properties>
 
     <!-- Mule Forge Configuration -->
@@ -24,12 +24,9 @@
     </issueManagement>
 
     <scm>
-        <connection>scm:svn:http://svn.muleforge.org/mule-transport-restlet/</connection>
-        <developerConnection>
-            scm:svn:https://svn.muleforge.org/mule-transport-restlet/
-        </developerConnection>
-        <tag>HEAD</tag>
-        <url>http://svn.mule-transport-restlet.muleforge.org/</url>
+        <connection>scm:svn:http://svn.muleforge.org/restlet/trunk</connection>
+        <developerConnection>scm:svn:https://svn.muleforge.org/mrestlet/trunk</developerConnection>
+        <url>http://svn.restlet.muleforge.org/</url>
     </scm>
 
 
@@ -62,25 +59,11 @@
             <layout>default</layout>
         </repository>
         <repository>
-            <!-- local repository for this transport. Users can upload dependencies here when the artifact
-                is not available on any other repository. Its the users' responsibility to make sure that no
-                licenses are violated by uploading dependencies to this location
-            -->
-            <id>${thransportId}-deps</id>
-            <name>Restlet Dependencies</name>
-            <url>http://dist.muleforge.org/${artefactId}/dependencies/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
             <id>maven-restlet</id>
             <name>Public online Restlet repository</name>
             <url>http://maven.restlet.org</url>
         </repository>
     </repositories>
-
-    <!-- End of MuleForge Configuration -->
 
     <build>
         <plugins>
@@ -199,6 +182,12 @@
             <version>${mule.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.mule.modules</groupId>
+            <artifactId>mule-module-spring-config</artifactId>
+            <version>${mule.version}</version>
+            <scope>provided</scope>
+        </dependency>
         
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
@@ -226,9 +215,10 @@
             <version>${restlet.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.noelios.restlet</groupId>
-            <artifactId>com.noelios.restlet.ext.servlet</artifactId>
+            <groupId>org.restlet</groupId>
+            <artifactId>org.restlet.ext.json</artifactId>
             <version>${restlet.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>

@@ -4,6 +4,7 @@ package org.mule.transport.restlet.transformer;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.mule.api.MuleMessage;
 import org.mule.api.config.MuleProperties;
@@ -16,18 +17,19 @@ import org.mule.transport.http.HttpConnector;
 import org.mule.transport.http.HttpConstants;
 import org.mule.transport.http.i18n.HttpMessages;
 import org.mule.transport.restlet.i18n.RestletMessages;
+import org.restlet.data.Form;
 import org.restlet.data.MediaType;
 import org.restlet.data.Method;
+import org.restlet.data.Parameter;
 import org.restlet.data.Request;
 import org.restlet.resource.InputRepresentation;
 import org.restlet.resource.Representation;
 import org.restlet.resource.StringRepresentation;
+import org.restlet.util.Series;
 
 public class ObjectToRequestTransformer extends AbstractMessageAwareTransformer implements DiscoverableTransformer
 {
-
-    private static final String[] IGNORED_REQUEST_HEADERS = {};
-
+    public static final String MULE_MESSAGE = "mule.message";
     private int priorityWeighting = DiscoverableTransformer.DEFAULT_PRIORITY_WEIGHTING + 1;
 
     public ObjectToRequestTransformer()
@@ -45,19 +47,32 @@ public class ObjectToRequestTransformer extends AbstractMessageAwareTransformer 
     {
         final Request r = new Request();
 
+        Series<Parameter> headers = null;
+        Set httpHeaders = HttpConstants.REQUEST_HEADER_NAMES.keySet();
         for (final Iterator itr = message.getPropertyNames().iterator(); itr.hasNext();)
         {
             final String name = (String) itr.next();
             final String value = message.getProperty(name).toString();
             if (HttpConnector.HTTP_METHOD_PROPERTY.equals(name))
             {
-                r.setMethod(Method.valueOf((String) message.getProperty(value)));
+                r.setMethod(Method.valueOf(value));
             }
-            else if (isValidHttpHeader(name))
+            else if (name.startsWith("X-") || httpHeaders.contains(name))
             {
-                r.getAttributes().put(name, value);
-            }
+                if (headers == null) 
+                {
+                    headers = new Form();
+                }
+                headers.add(name, value);
+            } 
         }
+        
+        if (headers != null) 
+        {
+            r.getAttributes().put(com.noelios.restlet.http.HttpConstants.ATTRIBUTE_HEADERS, headers);
+        }
+        
+        r.getAttributes().put(MULE_MESSAGE, message);
 
         if (r.getMethod() == null)
         {
@@ -91,7 +106,7 @@ public class ObjectToRequestTransformer extends AbstractMessageAwareTransformer 
         }
         else if (payload instanceof OutputHandler)
         {
-
+            throw new TransformerException(RestletMessages.unsupportedTransformation(payload.getClass()), this);
         }
         else
         {

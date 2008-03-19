@@ -12,6 +12,16 @@
 
     <xsd:import namespace="http://www.mulesource.org/schema/mule/core/2.0"/>
 
+    <xsd:element name="uri-template-filter" type="uriTemplateFilterType" substitutionGroup="mule:abstract-filter" />
+    <xsd:complexType name="uriTemplateFilterType">
+        <xsd:complexContent>
+            <xsd:extension base="mule:abstractFilterType">
+                <xsd:attribute name="pattern" type="xsd:string" />
+                <xsd:attribute name="verbs" type="xsd:string" />
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    
     <xsd:element name="connector" type="restletConnectorType" substitutionGroup="mule:abstract-connector">
         <xsd:annotation>
             <xsd:documentation>
@@ -26,6 +36,27 @@
             <xsd:extension base="mule:connectorType"/>
         </xsd:complexContent>
     </xsd:complexType>
+
+    <xsd:element name="component" type="restletComponentType"
+        substitutionGroup="mule:abstract-component">
+        <xsd:annotation>
+            <xsd:documentation>
+                Represents a Restlet component.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <xsd:complexType name="restletComponentType">
+        <xsd:complexContent>
+            <xsd:extension base="mule:abstractComponentType">
+                <xsd:attributeGroup ref="componentAttributes" />
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:attributeGroup name="componentAttributes">
+        <xsd:attribute name="restlet-ref" type="xsd:string" />
+    </xsd:attributeGroup>
 
 
 </xsd:schema>

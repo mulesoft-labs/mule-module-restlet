@@ -14,6 +14,7 @@ import org.mule.DefaultMuleMessage;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
 import org.mule.api.endpoint.ImmutableEndpoint;
+import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.api.transformer.TransformerException;
 import org.mule.transport.AbstractMessageDispatcher;
 import org.restlet.Client;
@@ -30,7 +31,7 @@ public class RestletMessageDispatcher extends AbstractMessageDispatcher
 {
     private final Client client;
 
-    public RestletMessageDispatcher(final ImmutableEndpoint endpoint)
+    public RestletMessageDispatcher(final OutboundEndpoint endpoint)
     {
         super(endpoint);
 

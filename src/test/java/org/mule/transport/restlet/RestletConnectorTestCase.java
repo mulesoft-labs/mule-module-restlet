@@ -12,7 +12,7 @@ package org.mule.transport.restlet;
 
 import org.mule.api.transport.Connector;
 import org.mule.api.transport.MessageRequesterFactory;
-import org.mule.tck.providers.AbstractConnectorTestCase;
+import org.mule.transport.AbstractConnectorTestCase;
 import org.restlet.data.Method;
 import org.restlet.data.Request;
 
@@ -35,6 +35,16 @@ public class RestletConnectorTestCase extends AbstractConnectorTestCase
     public String getTestEndpointURI()
     {
         return "restlet:http://localhost:60127";
+    }
+
+    @Override
+    public void testConnectorListenerSupport() throws Exception {
+        // no receiver support yet
+    }
+
+    @Override
+    public void testConnectorMessageAdapter() throws Exception {
+        super.testConnectorMessageAdapter();
     }
 
     @Override

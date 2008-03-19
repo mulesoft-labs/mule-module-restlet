@@ -11,7 +11,7 @@
 package org.mule.transport.restlet;
 
 import org.mule.api.MuleException;
-import org.mule.api.endpoint.ImmutableEndpoint;
+import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.api.transport.MessageDispatcher;
 import org.mule.transport.AbstractMessageDispatcherFactory;
 
@@ -29,7 +29,7 @@ public class RestletMessageDispatcherFactory extends AbstractMessageDispatcherFa
      */
 
     @Override
-    public MessageDispatcher create(final ImmutableEndpoint endpoint) throws MuleException
+    public MessageDispatcher create(final OutboundEndpoint endpoint) throws MuleException
     {
         return new RestletMessageDispatcher(endpoint);
     }
