@@ -1,6 +1,8 @@
 package org.mule.transport.restlet;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -10,6 +12,10 @@ import org.mule.transport.http.HttpConnector;
 import org.restlet.util.Template;
 
 public class UriTemplateFilter implements Filter {
+    private static final String PAYLOAD = "set-payload.";
+
+    private static final String SET_HEADER = "set-header.";
+
     private static final Logger logger = Logger.getLogger(UriTemplateFilter.class.getName());
     
     private Set<String> verbs;
@@ -45,7 +51,31 @@ public class UriTemplateFilter implements Filter {
         
         String path = message.getStringProperty(HttpConnector.HTTP_REQUEST_PROPERTY, "");
         
-        return template.match(path) > 0;
+        if (template.match(path) > 0)
+        {
+            Map<String, Object> params = new HashMap<String, Object>();
+            template.parse(path, params);
+
+            for (Map.Entry<String, Object> e : params.entrySet())
+            {
+                String key = e.getKey();
+                
+                if (key.startsWith(SET_HEADER))
+                {
+                    String propName = key.substring(SET_HEADER.length());
+                    
+                    message.setProperty(propName, e.getValue());
+                }
+                else if (key.startsWith(PAYLOAD))
+                {
+                    message.release();
+                    message.setPayload(e.getValue());
+                }
+            }
+            return true;
+        }
+        
+        return false;
     }
 
 }

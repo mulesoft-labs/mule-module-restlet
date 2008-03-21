@@ -21,11 +21,15 @@
       <outbound>
         <filtering-router>
           <outbound-endpoint address="vm://queue1"/>
-          <restlet:uri-template-filter pattern="/bar/{foo}"/>
+          <restlet:uri-template-filter pattern="/bar/{set-header.foo}"/>
         </filtering-router>
         <filtering-router>
           <outbound-endpoint address="vm://queue1"/>
           <restlet:uri-template-filter pattern="/baz" />
+        </filtering-router>
+        <filtering-router>
+          <outbound-endpoint address="vm://queue1"/>
+          <restlet:uri-template-filter pattern="/echo/{set-payload.body}" />
         </filtering-router>
       </outbound>
     </service>
