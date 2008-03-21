@@ -50,12 +50,11 @@ public class UriTemplateFilter implements Filter {
         }
         
         String path = message.getStringProperty(HttpConnector.HTTP_REQUEST_PROPERTY, "");
-        
-        if (template.match(path) > 0)
-        {
-            Map<String, Object> params = new HashMap<String, Object>();
-            template.parse(path, params);
 
+        Map<String, Object> params = new HashMap<String, Object>();
+        
+        if (template.parse(path, params) > 0)
+        {
             for (Map.Entry<String, Object> e : params.entrySet())
             {
                 String key = e.getKey();
