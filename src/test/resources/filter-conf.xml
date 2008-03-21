@@ -21,7 +21,7 @@
       <outbound>
         <filtering-router>
           <outbound-endpoint address="vm://queue1"/>
-          <restlet:uri-template-filter pattern="/bar/{set-header.foo}"/>
+          <restlet:uri-template-filter pattern="/bar/{set-property.foo}"/>
         </filtering-router>
         <filtering-router>
           <outbound-endpoint address="vm://queue1"/>

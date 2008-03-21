@@ -14,7 +14,7 @@ import org.restlet.util.Template;
 public class UriTemplateFilter implements Filter {
     private static final String PAYLOAD = "set-payload.";
 
-    private static final String SET_HEADER = "set-header.";
+    private static final String SET_PROPERTY = "set-property.";
 
     private static final Logger logger = Logger.getLogger(UriTemplateFilter.class.getName());
     
@@ -60,9 +60,9 @@ public class UriTemplateFilter implements Filter {
             {
                 String key = e.getKey();
                 
-                if (key.startsWith(SET_HEADER))
+                if (key.startsWith(SET_PROPERTY))
                 {
-                    String propName = key.substring(SET_HEADER.length());
+                    String propName = key.substring(SET_PROPERTY.length());
                     
                     message.setProperty(propName, e.getValue());
                 }
