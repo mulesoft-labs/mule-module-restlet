@@ -48,7 +48,7 @@ public class RestletConnector extends AbstractConnector
     {
         // we can listen on any protocol. provided that the necessary 
         // http headers are there.
-        return true;
+        return protocol.startsWith("restlet");
     }
 
     @Override
