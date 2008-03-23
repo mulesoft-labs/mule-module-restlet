@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.mule.providers.restlet</groupId>
+    <groupId>org.mule.transports</groupId>
     <artifactId>mule-transport-restlet</artifactId>
     <packaging>jar</packaging>
     <name>Mule Restlet Transport</name>
@@ -25,7 +25,7 @@
 
     <scm>
         <connection>scm:svn:http://svn.muleforge.org/restlet/trunk</connection>
-        <developerConnection>scm:svn:https://svn.muleforge.org/mrestlet/trunk</developerConnection>
+        <developerConnection>scm:svn:https://svn.muleforge.org/restlet/trunk</developerConnection>
         <url>http://svn.restlet.muleforge.org/</url>
     </scm>
 
@@ -39,15 +39,15 @@
     <distributionManagement>
         <repository>
             <id>muleforge.webdav.releases</id>
-            <url>dav:https://dav.muleforge.org/repository/mule-transport-restlet/</url>
+            <url>dav:https://dav.muleforge.org/repository/restlet/</url>
         </repository>
         <snapshotRepository>
             <id>muleforge.webdav.snapshots</id>
-            <url>dav:https://dav.muleforge.org/snapshots.repository/mule-transport-restlet/</url>
+            <url>dav:https://dav.muleforge.org/snapshots.repository/restlet/</url>
         </snapshotRepository>
         <site>
             <id>muleforge.webdav.sites</id>
-            <url>dav:https://dav.muleforge.org/mule-transport-restlet/</url>
+            <url>dav:https://dav.muleforge.org/restlet/</url>
         </site>
     </distributionManagement>
 
@@ -66,11 +66,27 @@
     </repositories>
 
     <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-webdav</artifactId>
+                <version>1.0-beta-2</version>
+            </extension>
+        </extensions>
         <plugins>
             <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <finalName>mule-transport-restlet-${project.version}</finalName>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2-beta-1</version>
+                <configuration>
+                    <finalName>${artifactId}-${version}</finalName>
                     <descriptors>
                         <descriptor>assembly.xml</descriptor>
                     </descriptors>
