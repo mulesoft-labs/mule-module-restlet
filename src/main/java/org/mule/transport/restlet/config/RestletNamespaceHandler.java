@@ -9,11 +9,9 @@
  */
 package org.mule.transport.restlet.config;
 
-import org.mule.component.DefaultJavaComponent;
-import org.mule.component.simple.EchoComponent;
 import org.mule.config.spring.parsers.generic.ChildDefinitionParser;
 import org.mule.config.spring.parsers.generic.OrphanDefinitionParser;
-import org.mule.config.spring.parsers.specific.ComponentDelegatingDefinitionParser;
+import org.mule.config.spring.parsers.specific.ComponentDefinitionParser;
 import org.mule.config.spring.parsers.specific.SimpleComponentDefinitionParser;
 import org.mule.transport.restlet.RestletComponent;
 import org.mule.transport.restlet.RestletConnector;
@@ -30,6 +28,6 @@ public class RestletNamespaceHandler extends NamespaceHandlerSupport
     {
         registerBeanDefinitionParser("uri-template-filter", new ChildDefinitionParser("filter", UriTemplateFilter.class));
         registerBeanDefinitionParser("connector", new OrphanDefinitionParser(RestletConnector.class, true));
-        registerBeanDefinitionParser("component", new SimpleComponentDefinitionParser(DefaultJavaComponent.class, RestletComponent.class));
+        registerBeanDefinitionParser("component", new ComponentDefinitionParser(RestletComponent.class));
     }
 }
