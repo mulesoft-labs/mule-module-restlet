@@ -21,5 +21,4 @@ public class HelloWorldResource extends Resource {
     public Representation getRepresentation(Variant variant) {
         return new StringRepresentation("Hello World", MediaType.TEXT_PLAIN);
     }
-
 }
