@@ -61,7 +61,11 @@ public abstract class AbstractResponseTransformer extends AbstractDiscoverableTr
                     {
                         realKey = key.substring(2);
                     }
-                    msg.setProperty(realKey, parameter.getValue());
+                    String value = parameter.getValue();
+                    if (value != null)
+                    {
+                        msg.setProperty(realKey, value);
+                    }
                 }
             }
         }

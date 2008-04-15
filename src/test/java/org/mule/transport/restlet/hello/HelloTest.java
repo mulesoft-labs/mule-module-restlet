@@ -25,6 +25,8 @@ public class HelloTest extends FunctionalTestCase {
         
         result = client.send("http://localhost:9002/bar/foo?name=Dan", "test", props);
         assertEquals("hello Dan", result.getPayloadAsString());
+        
+        Thread.sleep(100000000);
     }
 
     @Override

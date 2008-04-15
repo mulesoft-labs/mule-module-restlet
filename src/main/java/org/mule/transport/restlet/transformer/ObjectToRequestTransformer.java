@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.mule.RequestContext;
+import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
 import org.mule.api.config.MuleProperties;
 import org.mule.api.transformer.DiscoverableTransformer;
@@ -81,13 +83,22 @@ public class ObjectToRequestTransformer extends AbstractMessageAwareTransformer 
 
         final Object payload = message.getPayload();
 
-        final String endpoint = message.getStringProperty(MuleProperties.MULE_ENDPOINT_PROPERTY, null);
-        if (endpoint == null)
+        String path = message.getStringProperty(HttpConnector.HTTP_REQUEST_PROPERTY, null);
+        if (path == null)
+        {
+            MuleEvent event = RequestContext.getEvent();
+            if (event != null) 
+            {
+                path = event.getEndpoint().getEndpointURI().toString();
+            }
+        }
+        
+        if (path == null)
         {
             throw new TransformerException(HttpMessages
                 .eventPropertyNotSetCannotProcessRequest(MuleProperties.MULE_ENDPOINT_PROPERTY), this);
         }
-        r.setResourceRef(endpoint);
+        r.setResourceRef(path);
 
         final MediaType mediaType = getMediaType(message, encoding);
 

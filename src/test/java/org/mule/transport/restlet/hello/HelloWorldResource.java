@@ -28,7 +28,11 @@ public class HelloWorldResource extends Resource {
         Series<Parameter> params = (Series<Parameter>) request.getAttributes().get(HttpConstants.ATTRIBUTE_HEADERS);
         if (params != null)
         {
-            headerValue = params.getFirst(X_CUSTOM_HEADER).getValue();
+            Parameter first = params.getFirst(X_CUSTOM_HEADER);
+            if (first != null)
+            {
+                headerValue = first.getValue();
+            }
         }
         
         name = request.getResourceRef().getQueryAsForm().getFirstValue("name");
