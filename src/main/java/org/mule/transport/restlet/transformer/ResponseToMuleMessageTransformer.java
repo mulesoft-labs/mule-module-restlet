@@ -8,6 +8,7 @@ import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
 import org.mule.api.transport.OutputHandler;
 import org.restlet.data.Response;
+import org.restlet.resource.Representation;
 
 public class ResponseToMuleMessageTransformer extends AbstractResponseTransformer {
 
@@ -18,7 +19,10 @@ public class ResponseToMuleMessageTransformer extends AbstractResponseTransforme
     protected Object getPayload(final Response response, String encoding) {
         return new OutputHandler() {
             public void write(MuleEvent event, OutputStream out) throws IOException {
-                response.getEntity().write(out);
+                Representation entity = response.getEntity();
+                if (entity != null) {
+                    entity.write(out);
+                }
             }
         };
     }
