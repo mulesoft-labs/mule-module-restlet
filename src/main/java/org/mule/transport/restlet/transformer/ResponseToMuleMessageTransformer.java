@@ -13,6 +13,7 @@ import org.restlet.resource.Representation;
 public class ResponseToMuleMessageTransformer extends AbstractResponseTransformer {
 
     public ResponseToMuleMessageTransformer() {
+        setReturnClass(OutputHandler.class);
     }
 
     @Override

@@ -12,8 +12,6 @@ import org.restlet.data.Request;
 public class RestletComponent extends DefaultJavaComponent {
     private Restlet restlet;
     
-    private static final ResponseToMuleMessageTransformer transformer = new ResponseToMuleMessageTransformer();
-    
     public RestletComponent() {
         super();
         
@@ -41,7 +39,7 @@ public class RestletComponent extends DefaultJavaComponent {
             
             Request request = (Request) message.getPayload(Request.class);
             
-            return transformer.transform(restlet.getRestlet().handle(request));
+            return restlet.getRestlet().handle(request);
         }
     }
 

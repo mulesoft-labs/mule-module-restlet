@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.mule.DefaultMuleMessage;
+import org.mule.RequestContext;
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
 import org.mule.api.transport.MessageAdapter;
@@ -27,9 +28,7 @@ public abstract class AbstractResponseTransformer extends AbstractDiscoverableTr
     @SuppressWarnings("unchecked")
     protected Object doTransform(Object src, String encoding) throws TransformerException {
         Response response = (Response) src;
-        
-        DefaultMuleMessage msg = new DefaultMuleMessage(getPayload(response, encoding));
-        
+        MuleMessage msg = RequestContext.getEvent().getMessage();
         final Map<String, Object> attributesMap = response.getAttributes();
         if (attributesMap != null && attributesMap.size() > 0)
         {
@@ -69,7 +68,7 @@ public abstract class AbstractResponseTransformer extends AbstractDiscoverableTr
                 }
             }
         }
-        return msg;
+        return getPayload(response, encoding);
     }
 
     protected abstract Object getPayload(Response response, String encoding);
