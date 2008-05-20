@@ -6,9 +6,11 @@ import org.apache.commons.lang.ArrayUtils;
 import org.mule.DefaultMuleMessage;
 import org.mule.RequestContext;
 import org.mule.api.MuleMessage;
+import org.mule.api.transformer.DiscoverableTransformer;
 import org.mule.api.transformer.TransformerException;
 import org.mule.api.transport.MessageAdapter;
 import org.mule.transformer.AbstractDiscoverableTransformer;
+import org.mule.transformer.AbstractMessageAwareTransformer;
 import org.mule.transport.DefaultMessageAdapter;
 import org.mule.transport.http.HttpConstants;
 import org.mule.transport.restlet.RestletConnector;
@@ -16,19 +18,23 @@ import org.restlet.data.Parameter;
 import org.restlet.data.Response;
 import org.restlet.util.Series;
 
-public abstract class AbstractResponseTransformer extends AbstractDiscoverableTransformer {
+public abstract class AbstractResponseTransformer 
+    extends AbstractMessageAwareTransformer
+    implements DiscoverableTransformer
+{
 
-    public AbstractResponseTransformer() {
+    private int priorityWeighting;
+    
+    public AbstractResponseTransformer() 
+    {
         super();
         
-        setReturnClass(MuleMessage.class);
         registerSourceType(Response.class);
     }
 
-    @SuppressWarnings("unchecked")
-    protected Object doTransform(Object src, String encoding) throws TransformerException {
-        Response response = (Response) src;
-        MuleMessage msg = RequestContext.getEvent().getMessage();
+    @Override
+    public Object transform(MuleMessage msg, String encoding) throws TransformerException {
+        Response response = (Response) msg.getPayload();
         final Map<String, Object> attributesMap = response.getAttributes();
         if (attributesMap != null && attributesMap.size() > 0)
         {
@@ -72,5 +78,16 @@ public abstract class AbstractResponseTransformer extends AbstractDiscoverableTr
     }
 
     protected abstract Object getPayload(Response response, String encoding);
+
+    public int getPriorityWeighting() 
+    {
+        return priorityWeighting;
+    }
+
+    public void setPriorityWeighting(int priorityWeighting) 
+    {
+        this.priorityWeighting = priorityWeighting;
+    }
+
 
 }
