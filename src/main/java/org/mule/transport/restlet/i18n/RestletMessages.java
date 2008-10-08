@@ -15,21 +15,23 @@ import org.mule.config.i18n.MessageFactory;
 
 public class RestletMessages extends MessageFactory
 {
+    private static RestletMessages factory = new RestletMessages();
+    
     private static final String BUNDLE_PATH = getBundlePath("restlet");
 
     public static Message unsupportedTransformation(final Class type)
     {
-        return createMessage(BUNDLE_PATH, 1, type.getName());
+        return factory.createMessage(BUNDLE_PATH, 1, type.getName());
     }
 
     public static Object noConnectorForProtocolRestlet()
     {
-        return createMessage(BUNDLE_PATH, 2);
+        return factory.createMessage(BUNDLE_PATH, 2);
     }
 
     public static Object noRestletConnectorFound(final String name)
     {
-        return createMessage(BUNDLE_PATH, 3, name);
+        return factory.createMessage(BUNDLE_PATH, 3, name);
     }
 
 }

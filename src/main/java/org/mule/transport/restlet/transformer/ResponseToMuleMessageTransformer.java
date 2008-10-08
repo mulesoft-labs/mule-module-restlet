@@ -3,9 +3,7 @@ package org.mule.transport.restlet.transformer;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.mortbay.http.handler.SetResponseHeadersHandler;
 import org.mule.api.MuleEvent;
-import org.mule.api.MuleMessage;
 import org.mule.api.transport.OutputHandler;
 import org.restlet.data.Response;
 import org.restlet.resource.Representation;

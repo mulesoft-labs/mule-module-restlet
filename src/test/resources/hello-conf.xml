@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:spring="http://www.springframework.org/schema/beans"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns="http://www.mulesource.org/schema/mule/core/2.0"
-  xmlns:restlet="http://www.mulesource.org/schema/mule/restlet/2.0"
+  xmlns="http://www.mulesource.org/schema/mule/core/2.1"
+  xmlns:restlet="http://www.mulesource.org/schema/mule/restlet/2.1"
   xsi:schemaLocation="
                http://restlet.apache.org http://restlet.apache.org/schemas/restlet-spring.xsd
-               http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-               http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
-               http://www.mulesource.org/schema/mule/restlet/2.0 http://www.mulesource.org/schema/mule/restlet/2.0/mule-restlet.xsd">
+               http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+               http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
+               http://www.mulesource.org/schema/mule/restlet/2.1 http://www.mulesource.org/schema/mule/restlet/2.1/mule-restlet.xsd">
 
   <model name="testModel">
 

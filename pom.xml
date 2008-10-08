@@ -8,7 +8,7 @@
     <description>Restlet Transport</description>
 
     <properties>
-        <mule.version>2.0.0</mule.version>
+        <mule.version>2.1.0-SNAPSHOT</mule.version>
         <restlet.version>1.0.8</restlet.version>
     </properties>
 
@@ -210,10 +210,16 @@
         </dependency>
         
         <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-activation_1.0.2_spec</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jcl</artifactId>
+            <version>1.5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging-api</artifactId>
             <version>1.1</version>
         </dependency>
+        
         <dependency>
             <groupId>org.restlet</groupId>
             <artifactId>org.restlet</artifactId>
@@ -233,6 +239,16 @@
             <groupId>com.noelios.restlet</groupId>
             <artifactId>com.noelios.restlet.ext.httpclient</artifactId>
             <version>${restlet.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-codec</groupId>
+                    <artifactId>commons-codec</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-httpclient</groupId>
+                    <artifactId>commons-httpclient</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.restlet</groupId>
@@ -245,6 +261,12 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>mockobjects</groupId>
+            <artifactId>mockobjects-core</artifactId>
+            <version>0.09</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
