@@ -24,6 +24,7 @@ Assembly descriptor for the full distribution.
       <directory></directory>
       <outputDirectory></outputDirectory>
       <includes>
+        <include>README.txt</include>
         <include>LICENSE.txt</include>
       </includes>
     </fileSet>
@@ -34,10 +35,12 @@ Assembly descriptor for the full distribution.
       <outputDirectory></outputDirectory>
       <useTransitiveFiltering>true</useTransitiveFiltering>
       <useStrictFiltering>true</useStrictFiltering>
+      
       <excludes>
         <exclude>org.mule:mule-core</exclude>
         <exclude>org.mule.transports:mule-transport-http</exclude>
-        <exclude>org.mule.modules:*</exclude>
+        <exclude>org.mule.modules:mule-module-client</exclude>
+        <exclude>org.mule.modules:mule-module-spring-config</exclude>
       </excludes>
     </dependencySet>
   </dependencySets>
