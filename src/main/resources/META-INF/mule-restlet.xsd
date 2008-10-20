@@ -2,6 +2,7 @@
 <xsd:schema xmlns="http://www.mulesource.org/schema/mule/restlet/2.1"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns:mule="http://www.mulesource.org/schema/mule/core/2.1"
+    xmlns:schemadoc="http://www.mulesource.org/schema/mule/schemadoc/2.1"
             targetNamespace="http://www.mulesource.org/schema/mule/restlet/2.1"
             elementFormDefault="qualified"
             attributeFormDefault="unqualified">
@@ -12,6 +13,27 @@
 
     <xsd:import namespace="http://www.mulesource.org/schema/mule/core/2.1"/>
 
+    <xsd:annotation>
+        <xsd:documentation>
+            Restlet is a lightweight REST framework for Java. The Mule/Restlet 
+            integration enables you to build RESTful services and perform
+            routing and message manipulation with URL templates.
+            
+        </xsd:documentation>
+        
+        <xsd:appinfo>
+            <schemadoc:short-name>Restlet</schemadoc:short-name>
+            <schemadoc:page-title>Restlet Transport</schemadoc:page-title>
+
+            <schemadoc:transport-features receiveEvents="false" dispatchEvents="true" responseEvents="true"
+                                          requestEvents="false"
+                                          transactions="false" streaming="true">
+                <schemadoc:inboundMEPs in-only="false" in-out="false" in-optional-out="false"/>
+                <schemadoc:outboundMEPs out-only="true" out-in="true" out-optional-in="true"/>
+            </schemadoc:transport-features>
+        </xsd:appinfo>
+    </xsd:annotation>
+    
     <xsd:element name="uri-template-filter" type="uriTemplateFilterType" substitutionGroup="mule:abstract-filter" />
     <xsd:complexType name="uriTemplateFilterType">
         <xsd:complexContent>

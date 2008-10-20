@@ -8,7 +8,7 @@
     <description>Restlet Transport</description>
 
     <properties>
-        <mule.version>2.1.0</mule.version>
+        <mule.version>2.1.1</mule.version>
         <restlet.version>1.0.8</restlet.version>
     </properties>
 
@@ -202,8 +202,23 @@
         
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-jcl</artifactId>
-            <version>1.5.3</version>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl104-over-slf4j</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.4</version>
         </dependency>
         
         <dependency>

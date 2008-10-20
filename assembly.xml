@@ -41,6 +41,9 @@ Assembly descriptor for the full distribution.
         <exclude>org.mule.transports:mule-transport-http</exclude>
         <exclude>org.mule.modules:mule-module-client</exclude>
         <exclude>org.mule.modules:mule-module-spring-config</exclude>
+        <exclude>commons-logging:commons-logging</exclude>
+        <exclude>org.slf4j:*</exclude>
+        <exclude>log4j:log4j</exclude>
       </excludes>
     </dependencySet>
   </dependencySets>
