@@ -1,23 +1,27 @@
 package org.mule.transport.restlet.hello;
 
-import com.noelios.restlet.http.HttpConstants;
 import org.restlet.Context;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
 import org.restlet.data.Parameter;
 import org.restlet.data.Request;
 import org.restlet.data.Response;
+import org.restlet.data.Status;
 import org.restlet.resource.Representation;
 import org.restlet.resource.Resource;
 import org.restlet.resource.StringRepresentation;
 import org.restlet.resource.Variant;
 import org.restlet.util.Series;
 
+import com.noelios.restlet.http.HttpConstants;
+
 public class HelloWorldResource extends Resource {
     public static final String X_CUSTOM_HEADER = "X-Custom-Header";
+    public static final String X_STATUS_HEADER = "X-Status-Header";
     
     private String name;
     private String headerValue;
+    private int status = 200;
     
     @SuppressWarnings("unchecked")
     public HelloWorldResource(Context context, Request request, Response response) {
@@ -33,6 +37,12 @@ public class HelloWorldResource extends Resource {
             {
                 headerValue = first.getValue();
             }
+            
+            first = params.getFirst(X_STATUS_HEADER);
+            if (first != null)
+            {
+                status = Integer.valueOf(first.getValue());
+            }
         }
         
         name = request.getResourceRef().getQueryAsForm().getFirstValue("name");
@@ -46,6 +56,7 @@ public class HelloWorldResource extends Resource {
         Series<Parameter> series = new Form();
         series.set(X_CUSTOM_HEADER, headerValue, false);
         response.getAttributes().put(HttpConstants.ATTRIBUTE_HEADERS, series);
+        response.setStatus(new Status(status));
         
         return response;
     }

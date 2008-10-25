@@ -1,13 +1,15 @@
 package org.mule.transport.restlet;
 
+import org.mule.DefaultMuleMessage;
 import org.mule.api.MuleEventContext;
 import org.mule.api.MuleMessage;
 import org.mule.api.lifecycle.Callable;
 import org.mule.component.DefaultJavaComponent;
 import org.mule.object.SingletonObjectFactory;
-import org.mule.transport.restlet.transformer.ResponseToMuleMessageTransformer;
+import org.mule.transport.http.HttpConnector;
 import org.restlet.Restlet;
 import org.restlet.data.Request;
+import org.restlet.data.Response;
 
 public class RestletComponent extends DefaultJavaComponent {
     private Restlet restlet;
@@ -35,11 +37,14 @@ public class RestletComponent extends DefaultJavaComponent {
         }
 
         public Object onCall(MuleEventContext eventContext) throws Exception {
-            MuleMessage message = eventContext.getMessage();
+            MuleMessage req = eventContext.getMessage();
             
-            Request request = (Request) message.getPayload(Request.class);
+            Request request = (Request) req.getPayload(Request.class);
             
-            return restlet.getRestlet().handle(request);
+            Response response = restlet.getRestlet().handle(request);
+            MuleMessage responseMsg = new DefaultMuleMessage(response, req);
+            responseMsg.setProperty(HttpConnector.HTTP_STATUS_PROPERTY, response.getStatus().getCode());
+            return responseMsg;
         }
     }
 

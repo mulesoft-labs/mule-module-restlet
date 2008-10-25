@@ -3,15 +3,10 @@ package org.mule.transport.restlet.transformer;
 import java.util.Map;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.mule.DefaultMuleMessage;
-import org.mule.RequestContext;
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.DiscoverableTransformer;
 import org.mule.api.transformer.TransformerException;
-import org.mule.api.transport.MessageAdapter;
-import org.mule.transformer.AbstractDiscoverableTransformer;
 import org.mule.transformer.AbstractMessageAwareTransformer;
-import org.mule.transport.DefaultMessageAdapter;
 import org.mule.transport.http.HttpConstants;
 import org.mule.transport.restlet.RestletConnector;
 import org.restlet.data.Parameter;
@@ -32,6 +27,7 @@ public abstract class AbstractResponseTransformer
         registerSourceType(Response.class);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Object transform(MuleMessage msg, String encoding) throws TransformerException {
         Response response = (Response) msg.getPayload();
@@ -74,6 +70,7 @@ public abstract class AbstractResponseTransformer
                 }
             }
         }
+        
         return getPayload(response, encoding);
     }
 
