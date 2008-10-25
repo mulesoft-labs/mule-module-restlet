@@ -4,7 +4,7 @@
     <artifactId>mule-transport-restlet</artifactId>
     <packaging>jar</packaging>
     <name>Mule Restlet Transport</name>
-    <version>1.1.2</version>
+    <version>1.2-SNAPSHOT</version>
     <description>Restlet Transport</description>
 
     <properties>
@@ -19,9 +19,9 @@
     </issueManagement>
 
     <scm>
-        <connection>scm:svn:http://svn.muleforge.org/restlet/tags/mule-transport-restlet-1.1.2</connection>
-        <developerConnection>scm:svn:https://svn.muleforge.org/restlet/tags/mule-transport-restlet-1.1.2</developerConnection>
-        <url>http://svn.restlet.muleforge.org/tags/mule-transport-restlet-1.1.2</url>
+        <connection>scm:svn:http://svn.muleforge.org/restlet/tags/mule-transport-restlet-1.2-SNAPSHOT</connection>
+        <developerConnection>scm:svn:https://svn.muleforge.org/restlet/tags/mule-transport-restlet-1.2-SNAPSHOT</developerConnection>
+        <url>http://svn.restlet.muleforge.org/tags/mule-transport-restlet-1.2-SNAPSHOT</url>
     </scm>
 
 
