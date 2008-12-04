@@ -1,7 +1,6 @@
 package org.mule.transport.restlet.hello;
 
 import org.restlet.Application;
-import org.restlet.Context;
 import org.restlet.Restlet;
 import org.restlet.Router;
 import org.restlet.data.Request;

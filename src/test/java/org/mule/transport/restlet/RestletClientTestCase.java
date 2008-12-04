@@ -7,7 +7,6 @@ import org.restlet.Client;
 import org.restlet.data.Protocol;
 import org.restlet.data.Response;
 import org.restlet.resource.StringRepresentation;
-import org.restlet.util.Helper;
 
 public class RestletClientTestCase extends FunctionalTestCase {
 

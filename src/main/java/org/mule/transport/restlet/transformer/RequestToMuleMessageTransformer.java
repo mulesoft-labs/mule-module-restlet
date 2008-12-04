@@ -3,18 +3,16 @@ package org.mule.transport.restlet.transformer;
 import java.io.IOException;
 import java.util.Map;
 
-import org.restlet.data.Parameter;
-import org.restlet.data.Request;
-import org.restlet.util.Series;
 import org.apache.commons.lang.ArrayUtils;
 import org.mule.DefaultMuleMessage;
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
 import org.mule.transformer.AbstractDiscoverableTransformer;
-import org.mule.transformer.AbstractTransformer;
-import org.mule.transport.DefaultMessageAdapter;
 import org.mule.transport.http.HttpConstants;
 import org.mule.transport.restlet.RestletConnector;
+import org.restlet.data.Parameter;
+import org.restlet.data.Request;
+import org.restlet.util.Series;
 
 public class RequestToMuleMessageTransformer extends AbstractDiscoverableTransformer {
 

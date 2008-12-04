@@ -1,9 +1,7 @@
 package org.mule.transport.restlet;
 
-import org.apache.commons.io.IOUtils;
 import org.mule.api.MuleMessage;
 import org.mule.module.client.MuleClient;
-import org.mule.tck.AbstractMuleTestCase;
 import org.mule.tck.FunctionalTestCase;
 import org.restlet.data.Response;
 

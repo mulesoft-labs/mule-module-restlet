@@ -12,7 +12,6 @@ package org.mule.transport.restlet.config;
 import org.mule.config.spring.parsers.generic.ChildDefinitionParser;
 import org.mule.config.spring.parsers.generic.OrphanDefinitionParser;
 import org.mule.config.spring.parsers.specific.ComponentDefinitionParser;
-import org.mule.config.spring.parsers.specific.SimpleComponentDefinitionParser;
 import org.mule.transport.restlet.RestletComponent;
 import org.mule.transport.restlet.RestletConnector;
 import org.mule.transport.restlet.UriTemplateFilter;
