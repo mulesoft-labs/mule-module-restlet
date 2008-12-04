@@ -9,7 +9,7 @@
 
     <properties>
         <mule.version>2.1.1</mule.version>
-        <restlet.version>1.0.8</restlet.version>
+        <restlet.version>1.1.1</restlet.version>
     </properties>
 
     <!-- Mule Forge Configuration -->

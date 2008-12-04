@@ -3,6 +3,9 @@ package org.mule.transport.restlet.client;
 import com.noelios.restlet.http.HttpClientHelper;
 
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.WritableByteChannel;
 import java.util.logging.Level;
 
 import org.mule.api.MuleMessage;
@@ -12,7 +15,6 @@ import org.mule.transport.http.HttpConnector;
 import org.mule.transport.restlet.transformer.RequestToMuleMessageTransformer;
 import org.restlet.data.Request;
 import org.restlet.data.Status;
-import org.restlet.resource.Representation;
 
 public class HttpClientCall extends com.noelios.restlet.http.HttpClientCall {
 
@@ -54,17 +56,34 @@ public class HttpClientCall extends com.noelios.restlet.http.HttpClientCall {
     }
 
     @Override
-    public Representation getResponseEntity() {
-        return super.getResponseEntity();
+    public WritableByteChannel getRequestEntityChannel() {
+        return null;
     }
 
     @Override
-    public InputStream getResponseStream() {
+    public OutputStream getRequestEntityStream() {
+        return null;
+    }
+
+    @Override
+    public OutputStream getRequestHeadStream() {
+        return null;
+    }
+
+    @Override
+    public ReadableByteChannel getResponseEntityChannel(long arg0) {
+        return null;
+    }
+
+    @Override
+    public InputStream getResponseEntityStream(long arg0) {
         try {
             return (InputStream) muleResponse.getPayload(InputStream.class);
         } catch (TransformerException e) {
             throw new RuntimeException(e);
         }
     }
+
+
     
 }

@@ -36,7 +36,7 @@ public class RestletConnector extends AbstractConnector
 
     public static final String HTTP_STATUS_PROPERTY = HTTP_PREFIX + "status";
 
-    public static final String[] RESTLET_IGNORE_KEYS = {Application.KEY, HttpConstants.ATTRIBUTE_HEADERS,
+    public static final String[] RESTLET_IGNORE_KEYS = {HttpConstants.ATTRIBUTE_HEADERS,
         HttpConstants.ATTRIBUTE_VERSION};
 
     public RestletConnector()
