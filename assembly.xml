@@ -21,6 +21,10 @@ Assembly descriptor for the full distribution.
       <outputDirectory></outputDirectory>
     </fileSet>
     <fileSet>
+      <directory>src/main/release</directory>
+      <outputDirectory></outputDirectory>
+    </fileSet>
+    <fileSet>
       <directory></directory>
       <outputDirectory></outputDirectory>
       <includes>
@@ -43,7 +47,6 @@ Assembly descriptor for the full distribution.
         <exclude>org.mule.modules:mule-module-spring-config</exclude>
         <exclude>commons-logging:commons-logging</exclude>
         <exclude>org.slf4j:*</exclude>
-        <exclude>log4j:log4j</exclude>
       </excludes>
     </dependencySet>
   </dependencySets>
