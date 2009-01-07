@@ -43,7 +43,7 @@ public class HelloWorldResource extends Resource {
                 status = Integer.valueOf(first.getValue());
             }
         }
-        
+         
         name = request.getResourceRef().getQueryAsForm().getFirstValue("name");
     }
 
@@ -67,6 +67,9 @@ public class HelloWorldResource extends Resource {
     public Representation getRepresentation(Variant variant) {
         if (name == null) {
             return new StringRepresentation("hello, world", MediaType.TEXT_PLAIN);
+        } else if ("Mr. XML".equals(name)) {
+            return new StringRepresentation("<hello>" + name + "</hello>", 
+                                            MediaType.APPLICATION_XML);
         } else {
             return new StringRepresentation("hello " + name, MediaType.TEXT_PLAIN);
         }
