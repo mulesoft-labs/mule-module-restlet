@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:restlet="http://www.mulesource.org/schema/mule/restlet/2.1"
+    xmlns:restlet="http://www.mulesource.org/schema/mule/restlet/2.2"
     xsi:schemaLocation="
-       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
-       http://www.mulesource.org/schema/mule/restlet/2.1 http://www.mulesource.org/schema/mule/restlet/2.1/mule-restlet.xsd">
+       http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+       http://www.mulesource.org/schema/mule/restlet/2.2 http://www.mulesource.org/schema/mule/restlet/2.2/mule-restlet.xsd">
 
     <model name="Test">
         <service name="HttpEcho">
             <inbound>
-                <inbound-endpoint address="http://localhost:63080/echo" remoteSync="true"/>
+                <inbound-endpoint address="http://localhost:63080/echo" synchronous="true"/>
             </inbound>
             <echo-component />
         </service>

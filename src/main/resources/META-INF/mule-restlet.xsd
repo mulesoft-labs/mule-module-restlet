@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<xsd:schema xmlns="http://www.mulesource.org/schema/mule/restlet/2.1"
+<xsd:schema xmlns="http://www.mulesource.org/schema/mule/restlet/2.2"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:mule="http://www.mulesource.org/schema/mule/core/2.1"
-    xmlns:schemadoc="http://www.mulesource.org/schema/mule/schemadoc/2.1"
-            targetNamespace="http://www.mulesource.org/schema/mule/restlet/2.1"
+            xmlns:mule="http://www.mulesource.org/schema/mule/core/2.2"
+    xmlns:schemadoc="http://www.mulesource.org/schema/mule/schemadoc/2.2"
+            targetNamespace="http://www.mulesource.org/schema/mule/restlet/2.2"
             elementFormDefault="qualified"
             attributeFormDefault="unqualified">
 
@@ -11,7 +11,7 @@
     <xsd:import namespace="http://www.springframework.org/schema/beans"
                 schemaLocation="http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"/>
 
-    <xsd:import namespace="http://www.mulesource.org/schema/mule/core/2.1"/>
+    <xsd:import namespace="http://www.mulesource.org/schema/mule/core/2.2"/>
 
     <xsd:annotation>
         <xsd:documentation>
