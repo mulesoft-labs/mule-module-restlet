@@ -60,6 +60,14 @@ public class HelloWorldResource extends Resource {
         return response;
     }
 
+
+
+    @Override
+    public boolean allowHead() {
+        return true;
+    }
+
+
     /**
      * Returns a full representation for a given variant.
      */

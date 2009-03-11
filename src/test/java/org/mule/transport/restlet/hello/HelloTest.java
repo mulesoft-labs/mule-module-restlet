@@ -34,6 +34,13 @@ public class HelloTest extends FunctionalTestCase {
         result = client.send("http://localhost:9002/bar/foo", "test", props);
         assertEquals("hello, world", result.getPayloadAsString());
         assertEquals("201", result.getProperty(HttpConnector.HTTP_STATUS_PROPERTY));
+        
+
+        props.put(HttpConnector.HTTP_METHOD_PROPERTY, "HEAD");
+        props.put(HelloWorldResource.X_STATUS_HEADER, "204");
+        result = client.send("http://localhost:9002/bar/foo", "test", props);
+        assertEquals("foo", result.getStringProperty(HelloWorldResource.X_CUSTOM_HEADER, ""));
+        assertEquals("204", result.getProperty(HttpConnector.HTTP_STATUS_PROPERTY));
     }
 
     @Override
