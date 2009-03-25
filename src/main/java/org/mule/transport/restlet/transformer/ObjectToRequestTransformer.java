@@ -1,6 +1,8 @@
 
 package org.mule.transport.restlet.transformer;
 
+import com.noelios.restlet.http.HttpRequest;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Iterator;
@@ -19,6 +21,7 @@ import org.mule.transport.http.HttpConnector;
 import org.mule.transport.http.HttpConstants;
 import org.mule.transport.http.i18n.HttpMessages;
 import org.mule.transport.restlet.i18n.RestletMessages;
+import org.restlet.Context;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
 import org.restlet.data.Method;
@@ -33,7 +36,8 @@ public class ObjectToRequestTransformer extends AbstractMessageAwareTransformer 
 {
     public static final String MULE_MESSAGE = "mule.message";
     private int priorityWeighting = DiscoverableTransformer.DEFAULT_PRIORITY_WEIGHTING + 1;
-
+    private Context context = new Context();
+    
     public ObjectToRequestTransformer()
     {
         super();
@@ -47,33 +51,22 @@ public class ObjectToRequestTransformer extends AbstractMessageAwareTransformer 
     @Override
     public Object transform(final MuleMessage message, final String encoding) throws TransformerException
     {
-        final Request r = new Request();
-
-        Series<Parameter> headers = null;
-        Set httpHeaders = HttpConstants.REQUEST_HEADER_NAMES.keySet();
-        for (final Iterator itr = message.getPropertyNames().iterator(); itr.hasNext();)
-        {
-            final String name = (String) itr.next();
-            final String value = message.getProperty(name).toString();
-            if (HttpConnector.HTTP_METHOD_PROPERTY.equals(name))
-            {
-                r.setMethod(Method.valueOf(value));
-            }
-            else if (name.startsWith("X-") || httpHeaders.contains(name))
-            {
-                if (headers == null) 
-                {
-                    headers = new Form();
-                }
-                headers.add(name, value);
-            } 
+        String hostHeader = message.getStringProperty(HttpConstants.HEADER_HOST, "localhost:80");
+        int idx = hostHeader.indexOf(':');
+        String host;
+        int port;
+        if (idx != -1) {
+            host = hostHeader.substring(0, idx);
+            port = Integer.valueOf(hostHeader.substring(idx+1));
+        } else {
+            host = hostHeader;
+            port = 80;
         }
         
-        if (headers != null) 
-        {
-            r.getAttributes().put(com.noelios.restlet.http.HttpConstants.ATTRIBUTE_HEADERS, headers);
-        }
+        HttpServerCall call = new HttpServerCall(message, host, port);
+        final HttpRequest r = new HttpRequest(context, call);
         
+        r.getAttributes().put(com.noelios.restlet.http.HttpConstants.ATTRIBUTE_HEADERS, call.getRequestHeaders());
         r.getAttributes().put(MULE_MESSAGE, message);
 
         if (r.getMethod() == null)
@@ -143,12 +136,6 @@ public class ObjectToRequestTransformer extends AbstractMessageAwareTransformer 
             mimeType += "; charset=" + encoding;
         }
         return new MediaType(mimeType);
-    }
-
-    private boolean isValidHttpHeader(final String name)
-    {
-        // TODO Auto-generated method stub
-        return false;
     }
 
     public int getPriorityWeighting()

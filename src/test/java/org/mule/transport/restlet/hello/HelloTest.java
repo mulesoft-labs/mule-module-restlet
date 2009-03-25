@@ -1,5 +1,7 @@
 package org.mule.transport.restlet.hello;
 
+import com.noelios.restlet.util.Base64;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +18,10 @@ public class HelloTest extends FunctionalTestCase {
         Map<String,Object> props = new HashMap<String, Object>();
         props.put(HttpConnector.HTTP_METHOD_PROPERTY, "GET");
         props.put(HelloWorldResource.X_CUSTOM_HEADER, "foo");
+        
+        HashMap<String, String> customHeaders = new HashMap<String,String>();
+        customHeaders.put("Authorization", "Basic " + Base64.encode("admin:admin".getBytes(), true));
+        props.put(HttpConnector.HTTP_CUSTOM_HEADERS_MAP_PROPERTY, customHeaders);
         
         MuleMessage result = client.send("http://localhost:63081/bar/foo", "test", props);
         assertEquals("hello, world", result.getPayloadAsString());
