@@ -13,7 +13,7 @@
 
     <service name="customerService">
       <inbound>
-        <inbound-endpoint address="http://localhost:9002" synchronous="true" />
+        <inbound-endpoint address="http://localhost:63081" synchronous="true" />
       </inbound>
       <restlet:component restlet-ref="helloWorld"/>
     </service>
