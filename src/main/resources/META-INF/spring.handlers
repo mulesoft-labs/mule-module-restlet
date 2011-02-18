@@ -1,1 +1,1 @@
-http\://www.mulesource.org/schema/mule/restlet/2.2=org.mule.transport.restlet.config.RestletNamespaceHandler
+http\://www.mulesoft.org/schema/mule/restlet=org.mule.transport.restlet.config.RestletNamespaceHandler

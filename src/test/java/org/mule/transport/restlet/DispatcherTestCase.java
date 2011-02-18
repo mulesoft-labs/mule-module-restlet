@@ -10,7 +10,7 @@ public class DispatcherTestCase extends FunctionalTestCase {
     public void testClient() throws Exception {
         String address = "restlet:http://localhost:63080/echo";
 
-        MuleClient client = new MuleClient();
+        MuleClient client = new MuleClient(muleContext);
         MuleMessage muleResponse = client.send(address, "Hello", null);
 
         assertNotNull(muleResponse);

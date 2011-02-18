@@ -79,7 +79,7 @@ public class RestletMessageDispatcher extends AbstractMessageDispatcher
 
     protected MuleMessage createResponseMessage(final Response response)
     {
-        return new DefaultMuleMessage(response);
+        return new DefaultMuleMessage(response, this.getConnector().getMuleContext());
     }
 
     protected Request getRequest(final MuleEvent event) throws TransformerException

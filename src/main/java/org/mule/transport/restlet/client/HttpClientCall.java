@@ -10,6 +10,7 @@ import java.util.logging.Level;
 
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
+import org.mule.api.transport.PropertyScope;
 import org.mule.module.client.MuleClient;
 import org.mule.transport.http.HttpConnector;
 import org.mule.transport.restlet.transformer.RequestToMuleMessageTransformer;
@@ -18,7 +19,7 @@ import org.restlet.data.Status;
 
 public class HttpClientCall extends com.noelios.restlet.http.HttpClientCall {
 
-    private static final RequestToMuleMessageTransformer REQUEST_TRANSFORMER = new RequestToMuleMessageTransformer();
+    private static RequestToMuleMessageTransformer REQUEST_TRANSFORMER;
     private MuleClient muleClient;
     private MuleMessage muleResponse;
     
@@ -26,6 +27,10 @@ public class HttpClientCall extends com.noelios.restlet.http.HttpClientCall {
                           String requestUri, MuleClient muleClient) {
         super(helper, method, requestUri);
         this.muleClient = muleClient;
+        if (REQUEST_TRANSFORMER == null) {
+            REQUEST_TRANSFORMER = new RequestToMuleMessageTransformer();
+            REQUEST_TRANSFORMER.setMuleContext(muleClient.getMuleContext());
+        }
     }
 
     /**
@@ -44,7 +49,7 @@ public class HttpClientCall extends com.noelios.restlet.http.HttpClientCall {
             
             muleResponse = muleClient.send(getRequestUri(), muleRequest);
             
-            result = new Status(Integer.valueOf((String) muleResponse.getProperty(HttpConnector.HTTP_STATUS_PROPERTY)));
+            result = new Status(Integer.valueOf((String) muleResponse.getProperty(HttpConnector.HTTP_STATUS_PROPERTY, PropertyScope.INBOUND)));
         } catch (Exception e) {
             getHelper().getLogger()
                 .log(Level.INFO, "An unexpected error occurred during the sending of the HTTP request.", e);

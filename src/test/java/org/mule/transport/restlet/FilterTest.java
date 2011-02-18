@@ -11,20 +11,20 @@ import org.mule.transport.http.HttpConnector;
 
 public class FilterTest extends FunctionalTestCase {
     public void testFilter() throws Exception {
-        MuleClient client = new MuleClient();
+        MuleClient client = new MuleClient(muleContext);
         
-        MuleMessage result = client.send("http://localhost:63080/bar/foo", new DefaultMuleMessage("test"));
+        MuleMessage result = client.send("http://localhost:63080/bar/foo", new DefaultMuleMessage("test", muleContext));
         assertEquals("test received", result.getPayloadAsString());
 
         Map<String,Object> props = new HashMap<String, Object>();
         props.put(HttpConnector.HTTP_METHOD_PROPERTY, "GET");
-        result = client.send("http://localhost:63080/echo/body", new DefaultMuleMessage(""), props);
+        result = client.send("http://localhost:63080/echo/body", new DefaultMuleMessage("", muleContext), props);
         assertEquals("body received", result.getPayloadAsString());
         
-        result = client.send("http://localhost:63080/baz", new DefaultMuleMessage("test"));
+        result = client.send("http://localhost:63080/baz", new DefaultMuleMessage("test", muleContext));
         assertEquals("test received", result.getPayloadAsString());
 
-        result = client.send("http://localhost:63080/quo", new DefaultMuleMessage("test"));
+        result = client.send("http://localhost:63080/quo", new DefaultMuleMessage("test", muleContext));
         assertEquals("test", result.getPayloadAsString());
     }
 

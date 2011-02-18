@@ -12,6 +12,7 @@ package org.mule.transport.restlet;
 
 import org.mule.api.endpoint.ImmutableEndpoint;
 import org.mule.tck.AbstractMuleTestCase;
+import org.mule.transport.http.HttpConnector;
 
 public class RestletConnectorFactoryTestCase extends AbstractMuleTestCase
 {
@@ -26,7 +27,7 @@ public class RestletConnectorFactoryTestCase extends AbstractMuleTestCase
             getEndpointURI());
         assertNotNull(endpoint);
         assertNotNull(endpoint.getConnector());
-        assertTrue(endpoint.getConnector() instanceof RestletConnector);
+        assertTrue(endpoint.getConnector() instanceof HttpConnector);
         assertEquals(getEndpointURI(), endpoint.getEndpointURI().getSchemeMetaInfo() + ":"
             + endpoint.getEndpointURI().getAddress());
     }

@@ -11,6 +11,8 @@
 package org.mule.transport.restlet;
 
 import com.noelios.restlet.http.HttpConstants;
+
+import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
 import org.mule.api.lifecycle.InitialisationException;
 import org.mule.transport.AbstractConnector;
@@ -39,9 +41,9 @@ public class RestletConnector extends AbstractConnector
     public static final String[] RESTLET_IGNORE_KEYS = {HttpConstants.ATTRIBUTE_HEADERS,
         HttpConstants.ATTRIBUTE_VERSION};
 
-    public RestletConnector()
+    public RestletConnector(MuleContext context)
     {
-        super();
+        super(context);
     }
     
     public boolean supportsProtocol(String protocol)

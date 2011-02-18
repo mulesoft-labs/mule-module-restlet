@@ -8,24 +8,24 @@ import org.mule.api.MuleMessage;
 import org.mule.api.transformer.DiscoverableTransformer;
 import org.mule.api.transformer.TransformerException;
 import org.mule.api.transport.OutputHandler;
-import org.mule.transformer.AbstractMessageAwareTransformer;
+import org.mule.transformer.AbstractMessageTransformer;
+import org.mule.transformer.types.DataTypeFactory;
 import org.restlet.data.Response;
 import org.restlet.resource.Representation;
 
-public class ResponseToMuleMessageTransformer extends AbstractMessageAwareTransformer
+public class ResponseToMuleMessageTransformer extends AbstractMessageTransformer
     implements DiscoverableTransformer {
 
 
     private int priorityWeighting;
     public ResponseToMuleMessageTransformer() {
-        setReturnClass(OutputHandler.class);
-        registerSourceType(Response.class);
+        registerSourceType(DataTypeFactory.create(Response.class));
+        setReturnDataType(DataTypeFactory.create(OutputHandler.class));
     }
     
-    @SuppressWarnings("unchecked")
     @Override
-    public Object transform(MuleMessage msg, String encoding) throws TransformerException {
-        Response response = (Response) msg.getPayload();
+    public Object transformMessage(MuleMessage message, String encoding) throws TransformerException {
+        Response response = (Response) message.getPayload();
         
         return getPayload(response, encoding);
     }

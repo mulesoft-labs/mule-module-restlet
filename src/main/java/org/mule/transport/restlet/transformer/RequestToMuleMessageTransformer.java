@@ -5,29 +5,35 @@ import java.util.Map;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.mule.DefaultMuleMessage;
+import org.mule.api.MuleContext;
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
-import org.mule.transformer.AbstractDiscoverableTransformer;
+import org.mule.transformer.AbstractMessageTransformer;
+import org.mule.transformer.types.DataTypeFactory;
 import org.mule.transport.http.HttpConstants;
 import org.mule.transport.restlet.RestletConnector;
 import org.restlet.data.Parameter;
 import org.restlet.data.Request;
 import org.restlet.util.Series;
 
-public class RequestToMuleMessageTransformer extends AbstractDiscoverableTransformer {
+public class RequestToMuleMessageTransformer extends AbstractMessageTransformer {
 
     public RequestToMuleMessageTransformer() {
         super();
-        registerSourceType(Request.class);
-        setReturnClass(MuleMessage.class);
+        registerSourceType(DataTypeFactory.create(Request.class));
+        setReturnDataType(DataTypeFactory.create(MuleMessage.class));
     }
 
     @SuppressWarnings("unchecked")
-    protected Object doTransform(Object src, String encoding) throws TransformerException {
-        Request request = (Request) src;
+    @Override
+    public Object transformMessage(MuleMessage message, String enc) throws TransformerException {
+        if (this.muleContext == null) {
+            this.muleContext = message.getMuleContext();
+        }
+        Request request = (Request) message.getPayload();
         
         try {
-            DefaultMuleMessage msg = new DefaultMuleMessage(request.getEntity().getStream());
+            DefaultMuleMessage msg = new DefaultMuleMessage(request.getEntity().getStream(), message.getMuleContext());
             
             final Map<String, Object> attributesMap = request.getAttributes();
             if (attributesMap != null && attributesMap.size() > 0)
@@ -70,5 +76,9 @@ public class RequestToMuleMessageTransformer extends AbstractDiscoverableTransfo
             throw new TransformerException(this, e);
         }
     }
-
+    
+    public void setMuleContext(MuleContext context)
+    {
+        super.setMuleContext(context);
+    }
 }

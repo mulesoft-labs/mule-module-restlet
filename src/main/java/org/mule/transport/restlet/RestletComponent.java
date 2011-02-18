@@ -48,7 +48,7 @@ public class RestletComponent extends DefaultJavaComponent {
             Request request = (Request) req.getPayload(Request.class);
             
             Response response = restlet.getRestlet().handle(request);
-            MuleMessage msg = new DefaultMuleMessage(response, req);
+            MuleMessage msg = new DefaultMuleMessage(response, req, eventContext.getMuleContext());
             msg.setProperty(HttpConnector.HTTP_STATUS_PROPERTY, response.getStatus().getCode());
 
             final Map<String, Object> attributesMap = response.getAttributes();

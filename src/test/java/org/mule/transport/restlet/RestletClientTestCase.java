@@ -12,7 +12,7 @@ public class RestletClientTestCase extends FunctionalTestCase {
 
     public void testEcho() throws Exception {
         Engine engine = new Engine(false);
-        engine.getRegisteredClients().add(new MuleClientHelper());
+        engine.getRegisteredClients().add(new MuleClientHelper(muleContext));
         Engine.setInstance(engine);
         
         Client client = new Client(Protocol.HTTP);

@@ -1,12 +1,8 @@
 
 package org.mule.transport.restlet.transformer;
 
-import com.noelios.restlet.http.HttpRequest;
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.Iterator;
-import java.util.Set;
 
 import org.mule.RequestContext;
 import org.mule.api.MuleEvent;
@@ -14,25 +10,25 @@ import org.mule.api.MuleMessage;
 import org.mule.api.config.MuleProperties;
 import org.mule.api.transformer.DiscoverableTransformer;
 import org.mule.api.transformer.TransformerException;
-import org.mule.api.transport.MessageAdapter;
 import org.mule.api.transport.OutputHandler;
-import org.mule.transformer.AbstractMessageAwareTransformer;
+import org.mule.transformer.AbstractMessageTransformer;
+import org.mule.transformer.AbstractTransformer;
+import org.mule.transformer.types.DataTypeFactory;
 import org.mule.transport.http.HttpConnector;
 import org.mule.transport.http.HttpConstants;
 import org.mule.transport.http.i18n.HttpMessages;
 import org.mule.transport.restlet.i18n.RestletMessages;
 import org.restlet.Context;
-import org.restlet.data.Form;
 import org.restlet.data.MediaType;
 import org.restlet.data.Method;
-import org.restlet.data.Parameter;
 import org.restlet.data.Request;
 import org.restlet.resource.InputRepresentation;
 import org.restlet.resource.Representation;
 import org.restlet.resource.StringRepresentation;
-import org.restlet.util.Series;
 
-public class ObjectToRequestTransformer extends AbstractMessageAwareTransformer implements DiscoverableTransformer
+import com.noelios.restlet.http.HttpRequest;
+
+public class ObjectToRequestTransformer extends AbstractMessageTransformer implements DiscoverableTransformer
 {
     public static final String MULE_MESSAGE = "mule.message";
     private int priorityWeighting = DiscoverableTransformer.DEFAULT_PRIORITY_WEIGHTING + 1;
@@ -41,15 +37,15 @@ public class ObjectToRequestTransformer extends AbstractMessageAwareTransformer 
     public ObjectToRequestTransformer()
     {
         super();
-        registerSourceType(String.class);
-        registerSourceType(byte[].class);
-        registerSourceType(InputStream.class);
-        registerSourceType(OutputHandler.class);
-        setReturnClass(Request.class);
+        registerSourceType(DataTypeFactory.create(String.class));
+        registerSourceType(DataTypeFactory.create(byte[].class));
+        registerSourceType(DataTypeFactory.create(InputStream.class));
+        registerSourceType(DataTypeFactory.create(OutputHandler.class));
+        setReturnDataType(DataTypeFactory.create(Request.class));
     }
 
     @Override
-    public Object transform(final MuleMessage message, final String encoding) throws TransformerException
+    public Object transformMessage(MuleMessage message, String outputEncoding) throws TransformerException
     {
         String hostHeader = message.getStringProperty(HttpConstants.HEADER_HOST, "localhost:80");
         int idx = hostHeader.indexOf(':');
@@ -122,9 +118,9 @@ public class ObjectToRequestTransformer extends AbstractMessageAwareTransformer 
         return r;
     }
 
-    protected MediaType getMediaType(final MessageAdapter msg, final String encoding)
+    protected MediaType getMediaType(final MuleMessage message, final String encoding)
     {
-        String mimeType = (String) msg.getProperty(HttpConstants.HEADER_CONTENT_TYPE);
+        String mimeType = (String) message.getProperty(HttpConstants.HEADER_CONTENT_TYPE);
 
         if (mimeType == null)
         {
@@ -147,5 +143,4 @@ public class ObjectToRequestTransformer extends AbstractMessageAwareTransformer 
     {
         this.priorityWeighting = priorityWeighting;
     }
-
 }

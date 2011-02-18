@@ -26,7 +26,7 @@ public class RestletConnectorTestCase extends AbstractConnectorTestCase
     @Override
     public Connector createConnector() throws Exception
     {
-        final RestletConnector c = new RestletConnector();
+        final RestletConnector c = new RestletConnector(muleContext);
         c.setName("RestletConnector");
         return c;
     }
@@ -40,11 +40,6 @@ public class RestletConnectorTestCase extends AbstractConnectorTestCase
     @Override
     public void testConnectorListenerSupport() throws Exception {
         // no receiver support yet
-    }
-
-    @Override
-    public void testConnectorMessageAdapter() throws Exception {
-        super.testConnectorMessageAdapter();
     }
 
     @Override

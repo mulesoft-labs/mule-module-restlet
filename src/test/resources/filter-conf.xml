@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:spring="http://www.springframework.org/schema/beans"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns="http://www.mulesource.org/schema/mule/core/2.2"
+  xmlns="http://www.mulesoft.org/schema/mule/core"
   xmlns:a="http://abdera.apache.org"
-  xmlns:restlet="http://www.mulesource.org/schema/mule/restlet/2.2"
-  xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
+  xmlns:restlet="http://www.mulesoft.org/schema/mule/restlet"
+  xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
   xsi:schemaLocation="
                http://restlet.apache.org http://restlet.apache.org/schemas/restlet-spring.xsd
                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-               http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
-               http://www.mulesource.org/schema/mule/restlet/2.2 http://www.mulesource.org/schema/mule/restlet/2.2/mule-restlet.xsd
-               http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd">
+               http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
+               http://www.mulesoft.org/schema/mule/restlet http://www.mulesoft.org/schema/mule/restlet/3.1/mule-restlet.xsd
+               http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.1/mule-vm.xsd">
 
   <model name="testModel">
 
     <service name="customerService">
       <inbound>
-        <inbound-endpoint address="http://localhost:63080" synchronous="true"/>
+        <inbound-endpoint address="restlet:http://localhost:63080" exchange-pattern="request-response"/>
       </inbound>
       <outbound>
         <filtering-router>
-          <outbound-endpoint address="vm://queue1" synchronous="true"/>
+          <outbound-endpoint address="vm://queue1" exchange-pattern="request-response"/>
           <restlet:uri-template-filter pattern="/bar/{set-property.foo}"/>
         </filtering-router>
         <filtering-router>
-          <outbound-endpoint address="vm://queue1" synchronous="true"/>
+          <outbound-endpoint address="vm://queue1" exchange-pattern="request-response"/>
           <restlet:uri-template-filter pattern="/baz" />
         </filtering-router>
         <filtering-router>
-          <outbound-endpoint address="vm://queue1" synchronous="true"/>
+          <outbound-endpoint address="vm://queue1" exchange-pattern="request-response"/>
           <restlet:uri-template-filter pattern="/echo/{set-payload.body}" />
         </filtering-router>
       </outbound>
@@ -36,7 +36,7 @@
     
     <service name="queue">
       <inbound>
-        <inbound-endpoint address="vm://queue1" synchronous="true"/>
+        <inbound-endpoint address="vm://queue1" exchange-pattern="request-response"/>
       </inbound>
       <component>
         <spring-object bean="component1"/>

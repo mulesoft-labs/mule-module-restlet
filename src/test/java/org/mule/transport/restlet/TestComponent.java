@@ -8,7 +8,7 @@ public class TestComponent implements Callable {
 
     public Object onCall(MuleEventContext eventContext) throws Exception {
         return new DefaultMuleMessage(eventContext.getMessageAsString() + " received", 
-                                      eventContext.getMessage());
+                                      eventContext.getMessage(), eventContext.getMuleContext());
     }
 
 }
