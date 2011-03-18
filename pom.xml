@@ -18,13 +18,6 @@
         <url>http://mule.mulesource.org/jira/browse/RESTLET</url>
     </issueManagement>
 
-    <scm>
-        <connection>scm:svn:http://svn.muleforge.org/restlet/tags/mule-transport-restlet-1.2-SNAPSHOT</connection>
-        <developerConnection>scm:svn:https://svn.muleforge.org/restlet/tags/mule-transport-restlet-1.2-SNAPSHOT</developerConnection>
-        <url>http://svn.restlet.muleforge.org/tags/mule-transport-restlet-1.2-SNAPSHOT</url>
-    </scm>
-
-
     <ciManagement>
         <system>Bamboo</system>
         <url>http://bamboo.muleforge.org/browse/RESTLET-FORGE</url>
@@ -33,18 +26,31 @@
 
     <distributionManagement>
         <repository>
-            <id>muleforge.webdav.releases</id>
-            <url>dav:https://dav.muleforge.org/repository/restlet/</url>
+            <id>muleforge-releases</id>
+            <name>MuleForge Snapshot Repository</name>
+            <url>dav:https://repository.muleforge.org/release/</url>
         </repository>
         <snapshotRepository>
-            <id>muleforge.webdav.snapshots</id>
-            <url>dav:https://dav.muleforge.org/snapshots.repository/restlet/</url>
+            <id>muleforge-snapshots</id>
+            <name>MuleForge Repository</name>
+            <url>dav:https://repository.muleforge.org/snapshot/</url>
+            <uniqueVersion>false</uniqueVersion>
         </snapshotRepository>
-        <site>
-            <id>muleforge.webdav.sites</id>
-            <url>dav:https://dav.muleforge.org/restlet/</url>
-        </site>
     </distributionManagement>
+
+    <scm>
+        <connection>scm:git:git://github.com:mulesoft/mule-module-restlet.git
+        </connection>
+        <developerConnection>
+            scm:git:git@github.com:mulesoft/mule-module-restlet.git
+        </developerConnection>
+        <url>http://github.com/mulesoft/mule-module-restlet</url>
+    </scm>
+
+    <organization>
+        <url>http://mulesoft.com</url>
+        <name>MuleSoft, Inc</name>
+    </organization>
 
     <repositories>
         <repository>
