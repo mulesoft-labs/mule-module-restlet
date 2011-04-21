@@ -1,6 +1,6 @@
 package org.mule.transport.restlet.hello;
 
-import com.noelios.restlet.http.HttpConstants;
+
 import org.restlet.Context;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
@@ -13,6 +13,8 @@ import org.restlet.resource.Resource;
 import org.restlet.resource.StringRepresentation;
 import org.restlet.resource.Variant;
 import org.restlet.util.Series;
+
+import com.noelios.restlet.http.HttpConstants;
 
 public class HelloWorldResource extends Resource {
     public static final String X_CUSTOM_HEADER = "X-Custom-Header";

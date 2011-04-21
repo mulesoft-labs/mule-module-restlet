@@ -1,12 +1,13 @@
 package org.mule.transport.restlet;
 
-import com.noelios.restlet.Engine;
 import org.mule.tck.FunctionalTestCase;
 import org.mule.transport.restlet.client.MuleClientHelper;
 import org.restlet.Client;
 import org.restlet.data.Protocol;
 import org.restlet.data.Response;
 import org.restlet.resource.StringRepresentation;
+
+import com.noelios.restlet.Engine;
 
 public class RestletClientTestCase extends FunctionalTestCase {
 

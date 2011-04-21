@@ -3,13 +3,15 @@ package org.mule.transport.restlet.transformer;
 import java.io.IOException;
 import java.io.OutputStream;
 
+
+
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.DiscoverableTransformer;
 import org.mule.api.transformer.TransformerException;
 import org.mule.api.transport.OutputHandler;
 import org.mule.transformer.AbstractMessageTransformer;
-import org.mule.transformer.types.DataTypeFactory;
+import org.mule.transformer.types.SimpleDataType;
 import org.restlet.data.Response;
 import org.restlet.resource.Representation;
 
@@ -19,16 +21,10 @@ public class ResponseToMuleMessageTransformer extends AbstractMessageTransformer
 
     private int priorityWeighting;
     public ResponseToMuleMessageTransformer() {
-        registerSourceType(DataTypeFactory.create(Response.class));
-        setReturnDataType(DataTypeFactory.create(OutputHandler.class));
+    	setReturnDataType(new SimpleDataType<Object>(OutputHandler.class));
+        registerSourceType(new SimpleDataType<Object>(Response.class));
     }
     
-    @Override
-    public Object transformMessage(MuleMessage message, String encoding) throws TransformerException {
-        Response response = (Response) message.getPayload();
-        
-        return getPayload(response, encoding);
-    }
 
     protected Object getPayload(final Response response, String encoding) {
         return new OutputHandler() {
@@ -50,4 +46,12 @@ public class ResponseToMuleMessageTransformer extends AbstractMessageTransformer
     {
         this.priorityWeighting = priorityWeighting;
     }
+
+
+	@Override
+	public Object transformMessage(MuleMessage message, String outputEncoding) throws TransformerException {
+		Response response = (Response) message.getPayload();
+        
+        return getPayload(response, encoding);
+	}
 }

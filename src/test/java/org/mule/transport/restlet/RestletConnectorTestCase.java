@@ -38,29 +38,8 @@ public class RestletConnectorTestCase extends AbstractConnectorTestCase
     }
 
     @Override
-    public void testConnectorListenerSupport() throws Exception {
-        // no receiver support yet
-    }
-
-    @Override
     public Object getValidMessage() throws Exception
     {
         return new Request(Method.GET, "/endpoint");
-    }
-
-    public void testProperties() throws Exception
-    {
-    // TODO test setting and retrieving any custom properties on the
-    // Connector as necessary
-    }
-
-    @Override
-    public void testConnectorMessageRequesterFactory() throws Exception
-    {
-        final Connector connector = getConnector();
-        assertNotNull(connector);
-
-        final MessageRequesterFactory factory = connector.getRequesterFactory();
-        assertNull(factory);
     }
 }

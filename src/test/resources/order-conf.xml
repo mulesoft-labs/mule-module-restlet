@@ -6,7 +6,7 @@
   xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
   xsi:schemaLocation="
                http://restlet.apache.org http://restlet.apache.org/schemas/restlet-spring.xsd
-               http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+               http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
                http://www.mulesoft.org/schema/mule/restlet http://www.mulesoft.org/schema/mule/restlet/3.1/mule-restlet.xsd
                http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.1/mule-vm.xsd">
@@ -15,7 +15,7 @@
 
     <service name="customerService">
       <inbound>
-        <inbound-endpoint address="restlet:http://localhost:9002" exchange-pattern="request-response"/>
+        <inbound-endpoint address="http://localhost:9002" />
       </inbound>
       <component>
         <spring-object bean="restletService"/>

@@ -11,7 +11,6 @@ import org.restlet.resource.Variant;
 
 public class HelloWorldResource extends Resource {
     
-    @SuppressWarnings("unchecked")
     public HelloWorldResource(Context context, Request request, Response response) {
         super(context, request, response);
         getVariants().add(new Variant(MediaType.TEXT_PLAIN));

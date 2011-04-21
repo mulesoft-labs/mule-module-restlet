@@ -5,35 +5,30 @@ import java.util.Map;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.mule.DefaultMuleMessage;
-import org.mule.api.MuleContext;
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
-import org.mule.transformer.AbstractMessageTransformer;
-import org.mule.transformer.types.DataTypeFactory;
+import org.mule.transformer.AbstractDiscoverableTransformer;
+import org.mule.transformer.types.SimpleDataType;
 import org.mule.transport.http.HttpConstants;
 import org.mule.transport.restlet.RestletConnector;
 import org.restlet.data.Parameter;
 import org.restlet.data.Request;
 import org.restlet.util.Series;
 
-public class RequestToMuleMessageTransformer extends AbstractMessageTransformer {
+public class RequestToMuleMessageTransformer extends AbstractDiscoverableTransformer {
 
     public RequestToMuleMessageTransformer() {
         super();
-        registerSourceType(DataTypeFactory.create(Request.class));
-        setReturnDataType(DataTypeFactory.create(MuleMessage.class));
+        registerSourceType(new SimpleDataType<Object>(Request.class));
+        setReturnDataType(new SimpleDataType<Object>(MuleMessage.class));
     }
+    
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public Object transformMessage(MuleMessage message, String enc) throws TransformerException {
-        if (this.muleContext == null) {
-            this.muleContext = message.getMuleContext();
-        }
-        Request request = (Request) message.getPayload();
+    protected Object doTransform(Object src, String encoding) throws TransformerException {
+        Request request = (Request) src;
         
         try {
-            DefaultMuleMessage msg = new DefaultMuleMessage(request.getEntity().getStream(), message.getMuleContext());
+            DefaultMuleMessage msg = new DefaultMuleMessage(request.getEntity().getStream(),muleContext);
             
             final Map<String, Object> attributesMap = request.getAttributes();
             if (attributesMap != null && attributesMap.size() > 0)
@@ -46,11 +41,11 @@ public class RequestToMuleMessageTransformer extends AbstractMessageTransformer 
                     {
                         if (value.getClass().isArray() && ((Object[]) value).length == 1)
                         {
-                            msg.setProperty(key, ((Object[]) value)[0]);
+                            msg.setInboundProperty(key, ((Object[]) value)[0]);
                         }
                         else
                         {
-                            msg.setProperty(key, value);
+                            msg.setInboundProperty(key, value);
                         }
                     }
                 }
@@ -67,7 +62,7 @@ public class RequestToMuleMessageTransformer extends AbstractMessageTransformer 
                         {
                             realKey = key.substring(2);
                         }
-                        msg.setProperty(realKey, parameter.getValue());
+                        msg.setInboundProperty(realKey, parameter.getValue());
                     }
                 }
             }
@@ -76,9 +71,5 @@ public class RequestToMuleMessageTransformer extends AbstractMessageTransformer 
             throw new TransformerException(this, e);
         }
     }
-    
-    public void setMuleContext(MuleContext context)
-    {
-        super.setMuleContext(context);
-    }
+
 }

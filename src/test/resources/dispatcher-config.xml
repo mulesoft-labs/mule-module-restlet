@@ -6,12 +6,10 @@
        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
        http://www.mulesoft.org/schema/mule/restlet http://www.mulesoft.org/schema/mule/restlet/3.1/mule-restlet.xsd">
 
-	<restlet:connector name="restletConnector" />
-
     <model name="Test">
         <service name="HttpEcho">
             <inbound>
-                <inbound-endpoint address="http://localhost:63080/echo" exchange-pattern="request-response" />
+                <inbound-endpoint address="http://localhost:63080/echo" />
             </inbound>
             <echo-component />
         </service>

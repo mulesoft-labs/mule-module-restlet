@@ -46,10 +46,10 @@ public class RestletComponent extends DefaultJavaComponent {
             MuleMessage req = eventContext.getMessage();
             
             Request request = (Request) req.getPayload(Request.class);
-            
-            Response response = restlet.getRestlet().handle(request);
+            Response response = new Response(request);
+            restlet.getRestlet().handle(request, response);
             MuleMessage msg = new DefaultMuleMessage(response, req, eventContext.getMuleContext());
-            msg.setProperty(HttpConnector.HTTP_STATUS_PROPERTY, response.getStatus().getCode());
+            msg.setInvocationProperty(HttpConnector.HTTP_STATUS_PROPERTY, response.getStatus().getCode());
 
             final Map<String, Object> attributesMap = response.getAttributes();
             if (attributesMap != null && attributesMap.size() > 0)
@@ -62,11 +62,11 @@ public class RestletComponent extends DefaultJavaComponent {
                     {
                         if (value.getClass().isArray() && ((Object[]) value).length == 1)
                         {
-                            msg.setProperty(key, ((Object[]) value)[0]);
+                            msg.setInvocationProperty(key, ((Object[]) value)[0]);
                         }
                         else
                         {
-                            msg.setProperty(key, value);
+                            msg.setInvocationProperty(key, value);
                         }
                     }
                 }
@@ -85,13 +85,13 @@ public class RestletComponent extends DefaultJavaComponent {
                         String value = parameter.getValue();
                         if (value != null)
                         {
-                            msg.setProperty(realKey, value);
+                            msg.setInvocationProperty(realKey, value);
                         }
                     }
                 }
             }
             
-            msg.setProperty(HttpConstants.HEADER_CONTENT_TYPE, response.getEntity().getMediaType().toString());
+            msg.setInvocationProperty(HttpConstants.HEADER_CONTENT_TYPE, response.getEntity().getMediaType().toString());
             
             return msg;
         }

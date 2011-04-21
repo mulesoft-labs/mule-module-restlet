@@ -11,6 +11,7 @@
 package org.mule.transport.restlet;
 
 import org.mule.DefaultMuleMessage;
+import org.mule.api.MuleContext;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
 import org.mule.api.endpoint.OutboundEndpoint;
@@ -65,21 +66,14 @@ public class RestletMessageDispatcher extends AbstractMessageDispatcher
 
         // TODO: redirects?
 
-        return createResponseMessage(response);
+        return createResponseMessage(response,event.getMuleContext());
     }
 
-    public MuleMessage doReceive(final long timeout) throws Exception
+    
+
+    protected MuleMessage createResponseMessage(final Response response,MuleContext muleContext)
     {
-        final Response response = client.get(endpoint.getEndpointURI().getAddress());
-
-        // TODO: redirects?
-
-        return createResponseMessage(response);
-    }
-
-    protected MuleMessage createResponseMessage(final Response response)
-    {
-        return new DefaultMuleMessage(response, this.getConnector().getMuleContext());
+        return new DefaultMuleMessage(response,muleContext);
     }
 
     protected Request getRequest(final MuleEvent event) throws TransformerException

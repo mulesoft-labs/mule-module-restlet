@@ -3,13 +3,12 @@ package org.mule.transport.restlet.order;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.restlet.Context;
 import org.restlet.data.MediaType;
-import org.restlet.data.Request;
-import org.restlet.data.Response;
+import org.restlet.data.Status;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.Representation;
 import org.restlet.resource.Resource;
+import org.restlet.resource.ResourceException;
 import org.restlet.resource.StringRepresentation;
 import org.restlet.resource.Variant;
 
@@ -17,20 +16,19 @@ public class OrderResource extends Resource {
     
     private Variant jsonVariant;
 
-    public OrderResource(Context context, Request request, Response response) {
-        super(context, request, response);
+    public OrderResource() {
+       
         
         jsonVariant = new Variant(MediaType.APPLICATION_JSON);
         getVariants().add(jsonVariant);
         getVariants().add(new Variant(MediaType.TEXT_PLAIN));
     }
     
-    @Override
+
     public Variant getPreferredVariant() {
         return jsonVariant;
     }
-
-    @Override
+    
     public Representation getRepresentation(Variant variant) {
         if (variant.getMediaType().equals(jsonVariant.getMediaType())) {
             try {
@@ -60,7 +58,7 @@ public class OrderResource extends Resource {
     }
 
     @Override
-    public void post(Representation entity) {
+    public void acceptRepresentation(Representation entity) {
         try {
             if (entity.getMediaType().equals(MediaType.APPLICATION_JSON)) {
                 JsonRepresentation jsonRep = (JsonRepresentation) entity;
@@ -68,6 +66,7 @@ public class OrderResource extends Resource {
                 JSONObject obj = jsonRep.toJsonObject();
                 
                 System.out.println("Got " + obj);
+              
             } else {
                 
             }
@@ -76,18 +75,5 @@ public class OrderResource extends Resource {
         }
     }
 
-    @Override
-    public boolean allowDelete() {
-        return super.allowDelete();
-    }
-
-    @Override
-    public boolean allowPost() {
-        return true;
-    }
-
-    @Override
-    public boolean allowPut() {
-        return super.allowPut();
-    }
+   
 }

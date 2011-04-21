@@ -7,6 +7,7 @@
        http://www.mulesoft.org/schema/mule/restlet http://www.mulesoft.org/schema/mule/restlet/3.1/mule-restlet.xsd">
 
     <restlet:connector name="restletConnector" >
+    	
         <!-- TODO Add connector specific properties here and then assert that 
              they have been set in org.mule.providers.restlet.RestletNamespaceHandlerTestCase -->
     </restlet:connector>

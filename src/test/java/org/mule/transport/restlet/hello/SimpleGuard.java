@@ -17,9 +17,9 @@ public class SimpleGuard extends Guard {
     public int authenticate(Request request) {
         ChallengeResponse cr = request.getChallengeResponse();
 
-        if (cr == null) {
-            return Guard.AUTHENTICATION_INVALID;
-        }
+//        if (cr == null) {
+//            return Guard.AUTHENTICATION_INVALID;
+//        }
 
         return Guard.AUTHENTICATION_VALID;
     }

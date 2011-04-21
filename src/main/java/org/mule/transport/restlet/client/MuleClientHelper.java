@@ -5,10 +5,9 @@ import org.mule.api.MuleException;
 import org.mule.module.client.MuleClient;
 import org.restlet.Client;
 import org.restlet.data.Protocol;
-import org.restlet.data.Request;
 
 import com.noelios.restlet.Engine;
-import com.noelios.restlet.http.HttpClientHelper;
+import com.noelios.restlet.ext.httpclient.HttpClientHelper;
 
 public class MuleClientHelper extends HttpClientHelper {
     private MuleClient muleClient;
@@ -31,14 +30,6 @@ public class MuleClientHelper extends HttpClientHelper {
         getProtocols().add(Protocol.HTTPS);
         
         this.muleClient = muleClient;
-    }
-
-    @Override
-    public com.noelios.restlet.http.HttpClientCall create(Request request) {
-        return new HttpClientCall(this, 
-                                  request.getMethod().toString(), 
-                                  request.getResourceRef().toString(), 
-                                  muleClient);
     }
 
 }

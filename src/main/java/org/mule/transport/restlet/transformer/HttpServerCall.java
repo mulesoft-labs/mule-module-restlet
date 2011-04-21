@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.mule.api.MuleMessage;
-import org.mule.api.transport.PropertyScope;
 import org.mule.transport.http.HttpConnector;
 import org.mule.transport.http.HttpConstants;
 import org.restlet.data.Parameter;
@@ -19,12 +18,10 @@ public class HttpServerCall extends com.noelios.restlet.http.HttpServerCall {
         super(host, port);
         Series<Parameter> headers = getRequestHeaders();
         Set httpHeaders = HttpConstants.REQUEST_HEADER_NAMES.keySet();
-        for (final Iterator itr = message.getPropertyNames().iterator(); itr.hasNext();)
+        for (final Iterator itr = message.getInboundPropertyNames().iterator(); itr.hasNext();)
         {
             final String name = (String) itr.next();
-            final String value = message.getProperty(name, PropertyScope.OUTBOUND) == null 
-                ? ((message.getProperty(name, PropertyScope.INBOUND) == null) ? null : message.getProperty(name, PropertyScope.INBOUND).toString()) 
-                : message.getProperty(name, PropertyScope.OUTBOUND).toString();
+            final String value = message.getInboundProperty(name).toString();
             if (HttpConnector.HTTP_METHOD_PROPERTY.equals(name))
             {
                 setMethod(value);
