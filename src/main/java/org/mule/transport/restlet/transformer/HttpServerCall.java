@@ -11,9 +11,10 @@ import org.mule.api.MuleMessage;
 import org.mule.transport.http.HttpConnector;
 import org.mule.transport.http.HttpConstants;
 import org.restlet.data.Parameter;
+import org.restlet.engine.http.ServerCall;
 import org.restlet.util.Series;
 
-public class HttpServerCall extends com.noelios.restlet.http.HttpServerCall {
+public class HttpServerCall extends ServerCall {
     public HttpServerCall(MuleMessage message, String host, int port) {
         super(host, port);
         Series<Parameter> headers = getRequestHeaders();
@@ -63,5 +64,11 @@ public class HttpServerCall extends com.noelios.restlet.http.HttpServerCall {
     public OutputStream getResponseEntityStream() {
         return null;
     }
+
+	@Override
+	public boolean abort() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

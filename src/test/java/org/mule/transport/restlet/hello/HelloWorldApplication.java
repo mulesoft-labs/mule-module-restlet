@@ -1,12 +1,13 @@
 package org.mule.transport.restlet.hello;
 
 import org.restlet.Application;
-import org.restlet.Guard;
+import org.restlet.Request;
+import org.restlet.Response;
 import org.restlet.Restlet;
-import org.restlet.Router;
 import org.restlet.data.ChallengeScheme;
-import org.restlet.data.Request;
-import org.restlet.data.Response;
+import org.restlet.routing.Router;
+import org.restlet.security.Guard;
+
 
 public class HelloWorldApplication extends Application {
 

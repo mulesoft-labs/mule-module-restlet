@@ -5,9 +5,9 @@ import org.mule.api.MuleException;
 import org.mule.module.client.MuleClient;
 import org.restlet.Client;
 import org.restlet.data.Protocol;
+import org.restlet.engine.Engine;
+import org.restlet.engine.http.connector.HttpClientHelper;
 
-import com.noelios.restlet.Engine;
-import com.noelios.restlet.ext.httpclient.HttpClientHelper;
 
 public class MuleClientHelper extends HttpClientHelper {
     private MuleClient muleClient;

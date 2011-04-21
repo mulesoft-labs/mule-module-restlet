@@ -15,17 +15,17 @@ import org.mule.transformer.types.SimpleDataType;
 import org.mule.transport.http.HttpConnector;
 import org.mule.transport.http.HttpConstants;
 import org.mule.transport.http.i18n.HttpMessages;
+import org.mule.transport.restlet.RestletHttpConstants;
 import org.mule.transport.restlet.i18n.RestletMessages;
 import org.restlet.Context;
+import org.restlet.Response;
 import org.restlet.data.MediaType;
 import org.restlet.data.Method;
-import org.restlet.data.Response;
-import org.restlet.resource.InputRepresentation;
-import org.restlet.resource.Representation;
-import org.restlet.resource.StringRepresentation;
-
-import com.noelios.restlet.http.HttpRequest;
-import com.noelios.restlet.http.HttpResponse;
+import org.restlet.engine.http.HttpRequest;
+import org.restlet.engine.http.HttpResponse;
+import org.restlet.representation.InputRepresentation;
+import org.restlet.representation.Representation;
+import org.restlet.representation.StringRepresentation;
 
 public class ObjectToRequestTransformer extends AbstractMessageTransformer implements DiscoverableTransformer {
 	public static final String MULE_MESSAGE = "mule.message";
@@ -79,7 +79,7 @@ public class ObjectToRequestTransformer extends AbstractMessageTransformer imple
 		HttpServerCall call = new HttpServerCall(message, host, port);
 		final HttpRequest r = new HttpRequest(context, call);
 
-		r.getAttributes().put(com.noelios.restlet.http.HttpConstants.ATTRIBUTE_HEADERS, call.getRequestHeaders());
+		r.getAttributes().put(RestletHttpConstants.ATTRIBUTE_HEADERS, call.getRequestHeaders());
 		r.getAttributes().put(MULE_MESSAGE, message);
 
 		if (r.getMethod() == null) {

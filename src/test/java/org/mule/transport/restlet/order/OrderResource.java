@@ -6,11 +6,11 @@ import org.json.JSONObject;
 import org.restlet.data.MediaType;
 import org.restlet.data.Status;
 import org.restlet.ext.json.JsonRepresentation;
-import org.restlet.resource.Representation;
+import org.restlet.representation.Representation;
+import org.restlet.representation.StringRepresentation;
+import org.restlet.representation.Variant;
 import org.restlet.resource.Resource;
-import org.restlet.resource.ResourceException;
-import org.restlet.resource.StringRepresentation;
-import org.restlet.resource.Variant;
+
 
 public class OrderResource extends Resource {
     
@@ -29,7 +29,7 @@ public class OrderResource extends Resource {
         return jsonVariant;
     }
     
-    public Representation getRepresentation(Variant variant) {
+    public Representation represent(Variant variant) {
         if (variant.getMediaType().equals(jsonVariant.getMediaType())) {
             try {
                 JSONObject root = createJSONOrder();
@@ -41,7 +41,7 @@ public class OrderResource extends Resource {
         } else if (variant.getMediaType().equals(MediaType.TEXT_XML)) {
             return new StringRepresentation("");
         } else {
-            return super.getRepresentation(variant);
+            return super.represent(variant);
         }
     }
 

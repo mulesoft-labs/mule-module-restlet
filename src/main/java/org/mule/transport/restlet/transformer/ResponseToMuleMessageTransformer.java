@@ -3,8 +3,6 @@ package org.mule.transport.restlet.transformer;
 import java.io.IOException;
 import java.io.OutputStream;
 
-
-
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.DiscoverableTransformer;
@@ -12,8 +10,8 @@ import org.mule.api.transformer.TransformerException;
 import org.mule.api.transport.OutputHandler;
 import org.mule.transformer.AbstractMessageTransformer;
 import org.mule.transformer.types.SimpleDataType;
-import org.restlet.data.Response;
-import org.restlet.resource.Representation;
+import org.restlet.Response;
+import org.restlet.representation.Representation;
 
 public class ResponseToMuleMessageTransformer extends AbstractMessageTransformer
     implements DiscoverableTransformer {

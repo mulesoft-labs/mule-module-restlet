@@ -13,8 +13,8 @@ import org.mule.transport.http.HttpConnector;
 import org.mule.transport.http.HttpConstants;
 import org.restlet.Restlet;
 import org.restlet.data.Parameter;
-import org.restlet.data.Request;
-import org.restlet.data.Response;
+import org.restlet.Request;
+import org.restlet.Response;
 import org.restlet.util.Series;
 
 public class RestletComponent extends DefaultJavaComponent {
@@ -71,7 +71,7 @@ public class RestletComponent extends DefaultJavaComponent {
                     }
                 }
                 String realKey;
-                Series<Parameter> params = (Series<Parameter>) attributesMap.get(com.noelios.restlet.http.HttpConstants.ATTRIBUTE_HEADERS);
+                Series<Parameter> params = (Series<Parameter>) attributesMap.get(RestletHttpConstants.ATTRIBUTE_HEADERS);
                 if (params != null) 
                 {
                     for (final Parameter parameter : params)

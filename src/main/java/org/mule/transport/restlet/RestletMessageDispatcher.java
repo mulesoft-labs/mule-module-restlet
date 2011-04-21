@@ -19,8 +19,8 @@ import org.mule.api.transformer.TransformerException;
 import org.mule.transport.AbstractMessageDispatcher;
 import org.restlet.Client;
 import org.restlet.data.Protocol;
-import org.restlet.data.Request;
-import org.restlet.data.Response;
+import org.restlet.Request;
+import org.restlet.Response;
 
 /**
  * <code>RestletMessageDispatcher</code> TODO document

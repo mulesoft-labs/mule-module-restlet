@@ -17,7 +17,6 @@ import org.mule.transport.http.HttpConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.noelios.restlet.http.HttpConstants;
 
 /**
  * <code>RestletConnector</code> TODO document
@@ -39,7 +38,7 @@ public class RestletConnector extends HttpConnector {
 	public static final String HTTP_STATUS_PROPERTY = HTTP_PREFIX + "status";
 
 	public static final String[] RESTLET_IGNORE_KEYS = {
-			HttpConstants.ATTRIBUTE_HEADERS, HttpConstants.ATTRIBUTE_VERSION };
+			RestletHttpConstants.ATTRIBUTE_HEADERS, RestletHttpConstants.ATTRIBUTE_VERSION };
 	
 	public Logger logger = LoggerFactory.getLogger(getClass());
 	

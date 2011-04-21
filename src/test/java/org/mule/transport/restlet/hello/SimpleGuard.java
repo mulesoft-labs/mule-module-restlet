@@ -1,10 +1,10 @@
 package org.mule.transport.restlet.hello;
 
 import org.restlet.Context;
-import org.restlet.Guard;
+import org.restlet.Request;
 import org.restlet.data.ChallengeResponse;
 import org.restlet.data.ChallengeScheme;
-import org.restlet.data.Request;
+import org.restlet.security.Guard;
 
 public class SimpleGuard extends Guard {
 

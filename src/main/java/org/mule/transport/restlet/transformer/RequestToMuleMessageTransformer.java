@@ -11,8 +11,9 @@ import org.mule.transformer.AbstractDiscoverableTransformer;
 import org.mule.transformer.types.SimpleDataType;
 import org.mule.transport.http.HttpConstants;
 import org.mule.transport.restlet.RestletConnector;
+import org.mule.transport.restlet.RestletHttpConstants;
+import org.restlet.Request;
 import org.restlet.data.Parameter;
-import org.restlet.data.Request;
 import org.restlet.util.Series;
 
 public class RequestToMuleMessageTransformer extends AbstractDiscoverableTransformer {
@@ -51,7 +52,7 @@ public class RequestToMuleMessageTransformer extends AbstractDiscoverableTransfo
                 }
                 
                 String realKey;
-                Series<Parameter> params = (Series<Parameter>) attributesMap.get(com.noelios.restlet.http.HttpConstants.ATTRIBUTE_HEADERS);
+                Series<Parameter> params = (Series<Parameter>) attributesMap.get(RestletHttpConstants.ATTRIBUTE_HEADERS);
                 if (params != null) 
                 {
                     for (final Parameter parameter : params)

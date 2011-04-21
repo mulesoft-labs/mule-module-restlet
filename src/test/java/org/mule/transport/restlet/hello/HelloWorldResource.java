@@ -1,20 +1,21 @@
 package org.mule.transport.restlet.hello;
 
 
+import org.mule.transport.restlet.RestletHttpConstants;
 import org.restlet.Context;
+import org.restlet.Request;
+import org.restlet.Response;
 import org.restlet.data.Form;
 import org.restlet.data.MediaType;
 import org.restlet.data.Parameter;
-import org.restlet.data.Request;
-import org.restlet.data.Response;
 import org.restlet.data.Status;
-import org.restlet.resource.Representation;
+
+import org.restlet.representation.Representation;
+import org.restlet.representation.StringRepresentation;
+import org.restlet.representation.Variant;
 import org.restlet.resource.Resource;
-import org.restlet.resource.StringRepresentation;
-import org.restlet.resource.Variant;
 import org.restlet.util.Series;
 
-import com.noelios.restlet.http.HttpConstants;
 
 public class HelloWorldResource extends Resource {
     public static final String X_CUSTOM_HEADER = "X-Custom-Header";
@@ -30,7 +31,7 @@ public class HelloWorldResource extends Resource {
         
         getVariants().add(new Variant(MediaType.TEXT_PLAIN));
         
-        Series<Parameter> params = (Series<Parameter>) request.getAttributes().get(HttpConstants.ATTRIBUTE_HEADERS);
+        Series<Parameter> params = (Series<Parameter>) request.getAttributes().get(RestletHttpConstants.ATTRIBUTE_HEADERS);
         if (params != null)
         {
             Parameter first = params.getFirst(X_CUSTOM_HEADER);
@@ -56,7 +57,7 @@ public class HelloWorldResource extends Resource {
         
         Series<Parameter> series = new Form();
         series.set(X_CUSTOM_HEADER, headerValue, false);
-        response.getAttributes().put(HttpConstants.ATTRIBUTE_HEADERS, series);
+        response.getAttributes().put(RestletHttpConstants.ATTRIBUTE_HEADERS, series);
         response.setStatus(new Status(status));
         
         return response;
@@ -74,7 +75,7 @@ public class HelloWorldResource extends Resource {
      * Returns a full representation for a given variant.
      */
     @Override
-    public Representation getRepresentation(Variant variant) {
+    public Representation represent(Variant variant) {
         if (name == null) {
             return new StringRepresentation("hello, world", MediaType.TEXT_PLAIN);
         } else if ("Mr. XML".equals(name)) {

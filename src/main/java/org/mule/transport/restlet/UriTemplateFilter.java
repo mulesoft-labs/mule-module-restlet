@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import org.mule.api.MuleMessage;
 import org.mule.api.routing.filter.Filter;
 import org.mule.transport.http.HttpConnector;
-import org.restlet.util.Template;
+import org.restlet.routing.Template;
 
 public class UriTemplateFilter implements Filter {
     private static final String PAYLOAD = "set-payload.";
@@ -26,7 +26,7 @@ public class UriTemplateFilter implements Filter {
     }
 
     public void setPattern(String pattern) {
-        template = new Template(logger, pattern);
+        template = new Template(pattern);
     }
     
     public void setVerbs(String verbString) {

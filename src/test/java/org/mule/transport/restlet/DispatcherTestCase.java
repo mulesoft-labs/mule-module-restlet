@@ -3,7 +3,7 @@ package org.mule.transport.restlet;
 import org.mule.api.MuleMessage;
 import org.mule.module.client.MuleClient;
 import org.mule.tck.DynamicPortTestCase;
-import org.restlet.data.Response;
+import org.restlet.Response;
 
 public class DispatcherTestCase extends DynamicPortTestCase {
 

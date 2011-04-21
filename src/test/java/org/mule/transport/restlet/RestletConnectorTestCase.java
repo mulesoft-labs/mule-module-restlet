@@ -11,10 +11,9 @@
 package org.mule.transport.restlet;
 
 import org.mule.api.transport.Connector;
-import org.mule.api.transport.MessageRequesterFactory;
 import org.mule.transport.AbstractConnectorTestCase;
+import org.restlet.Request;
 import org.restlet.data.Method;
-import org.restlet.data.Request;
 
 public class RestletConnectorTestCase extends AbstractConnectorTestCase
 {
