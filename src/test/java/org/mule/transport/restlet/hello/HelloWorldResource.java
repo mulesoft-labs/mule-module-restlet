@@ -9,7 +9,6 @@ import org.restlet.data.Form;
 import org.restlet.data.MediaType;
 import org.restlet.data.Parameter;
 import org.restlet.data.Status;
-
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.representation.Variant;
@@ -28,7 +27,6 @@ public class HelloWorldResource extends Resource {
     @SuppressWarnings("unchecked")
     public HelloWorldResource(Context context, Request request, Response response) {
         super(context, request, response);
-        
         getVariants().add(new Variant(MediaType.TEXT_PLAIN));
         
         Series<Parameter> params = (Series<Parameter>) request.getAttributes().get(RestletHttpConstants.ATTRIBUTE_HEADERS);
