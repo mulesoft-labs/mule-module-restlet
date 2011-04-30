@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <code>RestletConnector</code> TODO document
- * 
  * @author <a href="mailto:keithnaas@biglots.com">keithnaas@biglots.com</a>
  */
 public class RestletConnector extends HttpConnector {

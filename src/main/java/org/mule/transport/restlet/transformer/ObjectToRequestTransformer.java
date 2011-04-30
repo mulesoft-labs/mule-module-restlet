@@ -1,3 +1,13 @@
+/*
+ * $Id$
+ * -----------------------------------------------------------------------------
+ * Copyright (c) MuleSource, Inc. All rights reserved. http://www.mulesource.com
+ *
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+
 package org.mule.transport.restlet.transformer;
 
 import java.io.ByteArrayInputStream;
@@ -26,7 +36,10 @@ import org.restlet.engine.http.HttpResponse;
 import org.restlet.representation.InputRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
-
+/**
+ * <code>ObjectToRequestTransformer</code> TODO document
+ * @author <a href="mailto:alberto.aresca@gmail.co">Alberto Aresca</a>
+ */
 public class ObjectToRequestTransformer extends AbstractMessageTransformer implements DiscoverableTransformer {
 	public static final String MULE_MESSAGE = "mule.message";
 	private int priorityWeighting = DiscoverableTransformer.DEFAULT_PRIORITY_WEIGHTING + 1;
