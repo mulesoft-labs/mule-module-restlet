@@ -16,7 +16,7 @@
 
     <service name="customerService">
       <inbound>
-        <inbound-endpoint address="restlet:http://localhost:63080" exchange-pattern="request-response"/>
+        <inbound-endpoint address="http://localhost:63080" exchange-pattern="request-response"/>
       </inbound>
       <outbound>
         <filtering-router>
