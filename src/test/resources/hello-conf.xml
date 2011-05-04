@@ -5,7 +5,7 @@
   xmlns:restlet="http://www.mulesoft.org/schema/mule/restlet"
   xsi:schemaLocation="
                http://restlet.apache.org http://restlet.apache.org/schemas/restlet-spring.xsd
-               http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+               http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
                http://www.mulesoft.org/schema/mule/restlet http://www.mulesoft.org/schema/mule/restlet/3.1/mule-restlet.xsd">
 

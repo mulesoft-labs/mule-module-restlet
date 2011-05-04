@@ -9,10 +9,13 @@ import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.representation.Variant;
+import org.restlet.resource.Get;
+import org.restlet.resource.Post;
 import org.restlet.resource.Resource;
+import org.restlet.resource.ServerResource;
 
 
-public class OrderResource extends Resource {
+public class OrderResource extends ServerResource {
     
     private Variant jsonVariant;
 
@@ -28,8 +31,8 @@ public class OrderResource extends Resource {
     public Variant getPreferredVariant() {
         return jsonVariant;
     }
-    
-    public Representation represent(Variant variant) {
+    @Get
+    public Representation get(Variant variant) {
         if (variant.getMediaType().equals(jsonVariant.getMediaType())) {
             try {
                 JSONObject root = createJSONOrder();
@@ -41,7 +44,7 @@ public class OrderResource extends Resource {
         } else if (variant.getMediaType().equals(MediaType.TEXT_XML)) {
             return new StringRepresentation("");
         } else {
-            return super.represent(variant);
+            return super.get(variant);
         }
     }
 
@@ -57,7 +60,7 @@ public class OrderResource extends Resource {
         return root;
     }
 
-    @Override
+    @Post
     public void acceptRepresentation(Representation entity) {
         try {
             if (entity.getMediaType().equals(MediaType.APPLICATION_JSON)) {

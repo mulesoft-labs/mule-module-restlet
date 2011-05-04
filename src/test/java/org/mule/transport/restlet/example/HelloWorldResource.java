@@ -7,20 +7,19 @@ import org.restlet.data.MediaType;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.representation.Variant;
+import org.restlet.resource.Get;
+import org.restlet.resource.ServerResource;
 
 
-import org.restlet.resource.Resource;
 
-
-
-public class HelloWorldResource extends Resource {
+public class HelloWorldResource extends ServerResource {
     
     public HelloWorldResource(Context context, Request request, Response response) {
        
         getVariants().add(new Variant(MediaType.TEXT_PLAIN));
     }
     
-    @Override
+    @Get
     public Representation represent(Variant variant) {
         return new StringRepresentation("Hello World", MediaType.TEXT_PLAIN);
     }
