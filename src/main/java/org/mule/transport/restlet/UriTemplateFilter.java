@@ -44,12 +44,12 @@ public class UriTemplateFilter implements Filter {
     }
 
     public boolean accept(MuleMessage message) {
-        String method = message.getStringProperty(HttpConnector.HTTP_METHOD_PROPERTY, "");
+        String method = message.getInboundProperty(HttpConnector.HTTP_METHOD_PROPERTY, "");
         if (verbs != null && !verbs.contains(method)) {
             return false;
         }
         
-        String path = message.getStringProperty(HttpConnector.HTTP_REQUEST_PROPERTY, "");
+        String path = message.getInboundProperty(HttpConnector.HTTP_REQUEST_PROPERTY, "");
 
         Map<String, Object> params = new HashMap<String, Object>();
         

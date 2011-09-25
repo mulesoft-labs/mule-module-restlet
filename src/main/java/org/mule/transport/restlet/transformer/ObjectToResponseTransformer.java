@@ -65,7 +65,7 @@ public class ObjectToResponseTransformer extends AbstractMessageTransformer impl
 
 	@Override
 	public Object transformMessage(MuleMessage message, String outputEncoding) throws TransformerException {
-		String hostHeader = message.getStringProperty(HttpConstants.HEADER_HOST, "localhost:80");
+		String hostHeader = message.getInboundProperty(HttpConstants.HEADER_HOST, "localhost:80");
 		int idx = hostHeader.indexOf(':');
 		String host;
 		int port;
@@ -89,14 +89,8 @@ public class ObjectToResponseTransformer extends AbstractMessageTransformer impl
 
 		final Object payload = message.getPayload();
 
-		String path = message.getStringProperty(HttpConnector.HTTP_REQUEST_PROPERTY, null);
-		if (path == null) {
-			MuleEvent event = RequestContext.getEvent();
-			if (event != null) {
-				path = event.getEndpoint().getEndpointURI().toString();
-			}
-		}
-
+		String path = message.getInboundProperty(HttpConnector.HTTP_REQUEST_PROPERTY, null);
+		
 		if (path == null) {
 			throw new TransformerException(HttpMessages.eventPropertyNotSetCannotProcessRequest(MuleProperties.MULE_ENDPOINT_PROPERTY), this);
 		}

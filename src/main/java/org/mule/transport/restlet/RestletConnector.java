@@ -51,37 +51,7 @@ public class RestletConnector extends HttpConnector {
 		return protocol.startsWith("restlet");
 	}
 	
-	@Override
-	protected void doInitialise() throws InitialisationException {
-		// TODO Auto-generated method stub
-		super.doInitialise();
-	}
-
-   
-    @Override
-    public void doConnect() throws Exception
-    {
-    }
-
-    @Override
-    public void doDisconnect() throws Exception
-    {
-    }
-
-    @Override
-    public void doStart() throws MuleException
-    {
-    }
-
-    @Override
-    public void doStop() throws MuleException
-    {
-    }
-
-    @Override
-    public void doDispose()
-    {
-    }
+	
 
     public String getProtocol()
     {

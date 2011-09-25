@@ -10,6 +10,8 @@
 
 package org.mule.transport.restlet;
 
+import junit.framework.Assert;
+
 import org.mule.api.endpoint.ImmutableEndpoint;
 import org.mule.api.transport.Connector;
 import org.mule.tck.AbstractMuleTestCase;
@@ -27,28 +29,16 @@ public class RestletConnectorFactoryTestCase extends AbstractConnectorTestCase
     	
     	final ImmutableEndpoint endpoint = muleContext.getRegistry().lookupEndpointFactory().getInboundEndpoint(
     			getTestEndpointURI());
-        assertNotNull(endpoint);
-        assertNotNull(endpoint.getConnector());
-        assertEquals("restlet", endpoint.getEndpointURI().getSchemeMetaInfo());
-        assertEquals(getTestEndpointURI(), endpoint.getEndpointURI().getSchemeMetaInfo() + ":"
+        Assert.assertNotNull(endpoint);
+        Assert.assertNotNull(endpoint.getConnector());
+        Assert.assertEquals("restlet", endpoint.getEndpointURI().getSchemeMetaInfo());
+        Assert.assertEquals(getTestEndpointURI(), endpoint.getEndpointURI().getSchemeMetaInfo() + ":"
             + endpoint.getEndpointURI().getAddress());
-        assertTrue("Endpoint is of class "+endpoint.getConnector().getClass().getName()+" instead",endpoint.getConnector() instanceof RestletConnector); 
+        Assert.assertTrue("Endpoint is of class "+endpoint.getConnector().getClass().getName()+" instead",endpoint.getConnector() instanceof RestletConnector); 
         //FIXME somehow the restlet connector seems not to be registered
     }
 
     
-    @Override
-    protected String getConfigurationResources() {
-    	
-    	return super.getConfigurationResources();
-    }
-    
-    
-    @Override
-    protected void initTestTimeoutSecs() {
-    	this.testTimeoutSecs = Integer.MAX_VALUE;
-    }
-
 	@Override
 	public Connector createConnector() throws Exception {
 		RestletConnector c = new RestletConnector(muleContext);
