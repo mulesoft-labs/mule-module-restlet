@@ -29,12 +29,12 @@
 		<repository>
 			<id>muleforge-releases</id>
 			<name>MuleForge Snapshot Repository</name>
-			<url>dav:https://repository.mulesoft.org/release/</url>
+			<url>https://repository.mulesoft.org/release/</url>
 		</repository>
 		<snapshotRepository>
 			<id>muleforge-snapshots</id>
 			<name>MuleForge Repository</name>
-			<url>dav:https://repository.mulesoft.org/snapshot/</url>
+			<url>https://repository.mulesoft.org/snapshot/</url>
 			<uniqueVersion>false</uniqueVersion>
 		</snapshotRepository>
 	</distributionManagement>
@@ -70,13 +70,6 @@
 	</repositories>
 
 	<build>
-		<extensions>
-			<extension>
-				<groupId>org.apache.maven.wagon</groupId>
-				<artifactId>wagon-webdav</artifactId>
-				<version>1.0-beta-2</version>
-			</extension>
-		</extensions>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
